@@ -1,17 +1,22 @@
+'use strict';
+
 import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
     TouchableOpacity,
     Image,
-    Dimensions,
     Text
 } from 'react-native';
+
+import { Login } from './login';
+
+import { colors, dimensions } from '../../constants/flareConstants'
 
 class LoginSignUp extends Component {
     render() {
         return(
-            <View style={styles.container}>
+            <View>
                 <View>
                     <Image
                      style={styles.background}
@@ -19,10 +24,10 @@ class LoginSignUp extends Component {
                     />
                 </View>
                 <View style={styles.logo}></View>
-                <TouchableOpacity style={styles.loginButton}>
+                <TouchableOpacity style={styles.loginButton} activeOpacity={0.8}>
                     <Text style={styles.loginText}>Login</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.signUpButton}>
+                <TouchableOpacity style={styles.signUpButton} activeOpacity={0.8}>
                     <Text style={styles.signUpText}>Sign Up</Text>
                 </TouchableOpacity>
             </View>
@@ -30,24 +35,17 @@ class LoginSignUp extends Component {
     }
 }
 
-var screenWidth = Dimensions.get('window').width;
-var screenHeight = Dimensions.get('window').height;
-var flareColor = '#C10D55';
-
 const styles = StyleSheet.create({
-    container: {
-
-    },
     background: {
-        width: screenWidth,
-        height: screenHeight,
+        width: dimensions.screenWidth,
+        height: dimensions.screenHeight,
     },
     logo: {
         marginTop: 60,
         width: 150,
         height: 150,
         right: 115,
-        backgroundColor: flareColor,
+        backgroundColor: colors.flareColor,
         position: 'absolute',
         borderRadius: 20,
         alignItems: 'center'
@@ -56,13 +54,13 @@ const styles = StyleSheet.create({
         marginLeft: 15,
         width: 160,
         height: 45,
-        backgroundColor: flareColor,
+        backgroundColor: colors.flareColor,
         position: 'absolute',
         borderRadius: 15,
         bottom: 35
     },
     loginText: {
-        color: '#F7EFF2',
+        color: colors.white,
         textAlign: 'center',
         fontWeight: '200',
         marginTop: 10
@@ -70,14 +68,14 @@ const styles = StyleSheet.create({
     signUpButton: {
         width: 160,
         height: 45,
-        backgroundColor: '#F7EFF2',
+        backgroundColor: colors.white,
         position: 'absolute',
         borderRadius: 15,
         right: 15,
         bottom: 35
     },
     signUpText: {
-        color: flareColor,
+        color: colors.flareColor,
         textAlign: 'center',
         fontWeight: '200',
         marginTop: 10
