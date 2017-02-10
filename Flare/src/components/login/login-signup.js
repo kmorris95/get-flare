@@ -5,18 +5,18 @@ import {
     StyleSheet,
     View,
     TouchableOpacity,
+    Navigator,
     Image,
     Text
 } from 'react-native';
 
-import { Login } from './login';
-
-import { colors, dimensions } from '../../constants/flareConstants'
+import { colors, dimensions } from '../../constants/flare-constants';
 
 class LoginSignUp extends Component {
     render() {
         return(
             <View>
+                <StatusBar barStyle="light-content"/>
                 <View>
                     <Image
                      style={styles.background}

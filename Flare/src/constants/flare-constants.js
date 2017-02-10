@@ -6,7 +6,8 @@ import {
 
 export const colors = {
     flareColor: '#C10D55',
-    white: '#F7EFF2'
+    white: '#F7EFF2',
+    teal: '#21768C'
 };
 
 export const dimensions = {

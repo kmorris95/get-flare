@@ -6,15 +6,14 @@ import {
   View,
   StatusBar
 } from 'react-native';
-import LoginSignUp from './src/components/login/login-signup'
+
+import LoginSignUp from './src/components/login/login-signup';
+import Login from './src/components/login/login';
 
 export default class Flare extends Component {
   render() {
     return (
-      <View>
-        <StatusBar barStyle="light-content"/>
-        <LoginSignUp/>
-      </View>
+        <Login/>
     );
   }
 }
