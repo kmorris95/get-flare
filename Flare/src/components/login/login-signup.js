@@ -25,14 +25,30 @@ class LoginSignUp extends Component {
                     />
                 </View>
                 <View style={styles.logo}></View>
-                <TouchableOpacity style={styles.loginButton} activeOpacity={0.8}>
+                <TouchableOpacity
+                  style={styles.loginButton}
+                  activeOpacity={0.8}
+                  onPress={this.login}
+                >
                     <Text style={styles.loginText}>Login</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.signUpButton} activeOpacity={0.8}>
+                <TouchableOpacity
+                  style={styles.signUpButton}
+                  activeOpacity={0.8}
+                  onPress={this.signup}
+                >
                     <Text style={styles.signUpText}>Sign Up</Text>
                 </TouchableOpacity>
             </View>
         );
+    }
+
+    login() {
+
+    }
+
+    signup() {
+
     }
 }
 
@@ -83,4 +99,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default LoginSignUp;
+module.exports = LoginSignUp;
