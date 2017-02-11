@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
         height: 40,
         backgroundColor: 'red',
         borderColor: 'blue',
+        borderWidth: 5,
         padding: 5,
         borderRadius: 5
     },
