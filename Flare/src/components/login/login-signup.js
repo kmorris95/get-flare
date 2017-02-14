@@ -24,11 +24,11 @@ class LoginSignUp extends Component {
     render() {
         return(
             <View>
-                <StatusBar barStyle="light-content"/>
+                <StatusBar barStyle="dark-content"/>
                 <View>
                     <Image
                      style={styles.background}
-                     source={require("../../images/space.jpg")}
+                     source={require("../../images/flare_1.jpg")}
                     />
                 </View>
                 <View style={styles.logo}></View>
@@ -57,10 +57,10 @@ const styles = StyleSheet.create({
         height: dimensions.screenHeight,
     },
     logo: {
-        marginTop: 60,
-        width: 150,
-        height: 150,
-        right: 115,
+        marginTop: 30,
+        width: 130,
+        height: 130,
+        right: 130,
         backgroundColor: colors.magenta,
         position: 'absolute',
         borderRadius: 20,
