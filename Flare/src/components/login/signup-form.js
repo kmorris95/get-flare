@@ -13,7 +13,7 @@ import {
 import LoginForm from './login-form'
 import { colors } from '../../constants/flare-constants';
 
-class LogIn extends Component {
+class SignUpForm extends Component {
 
     navigateForward(routeName) {
         this.props.navigator.push({
@@ -34,10 +34,8 @@ class LogIn extends Component {
                   onPress={this.navigateBack.bind(this)}
                 >
                     <Text style={styles.back}>&#60;</Text>
+                    <Text style={styles.back}>Sign In</Text>
                 </TouchableOpacity>
-                <View style={styles.textContainer}>
-                    <Text style={styles.welcome}>Welcome Back!</Text>
-                </View>
                 <View style={styles.formContainer}>
                     <LoginForm/>
                 </View>
@@ -84,4 +82,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default LogIn;
+export default SignUpForm;

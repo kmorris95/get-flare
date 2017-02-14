@@ -4,7 +4,9 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
-    TextInput
+    TextInput,
+    Text,
+    TouchableOpacity
 } from 'react-native';
 
 import { colors } from '../../constants/flare-constants';
@@ -13,13 +15,33 @@ class LoginForm extends Component {
     render() {
         return(
             <View style={styles.container}>
-                <View style={styles.inputWrapper}>
-                    <TextInput
-                      style={styles.input}
-                      placeholder="Email"
-                    />
-                </View>
-
+                <TextInput
+                  style={styles.input}
+                  placeholder="Email"
+                  keyboardType="email-address"
+                  returnKeyType="next"
+                />
+                <TextInput
+                  style={styles.input}
+                  placeholder="Password"
+                  secureTextEntry={true}
+                />
+                <TouchableOpacity
+                  style={styles.login}
+                  activeOpacity={0.9}>
+                    <Text style={styles.loginText}>Log In</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.forgot}
+                  activeOpacity={0.9}
+                >
+                    <Text style={styles.forgotText}>Forgot Password</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.facebook}
+                  activeOpacity={0.9}>
+                    <Text style={styles.facebookText}>Facebook</Text>
+                </TouchableOpacity>
             </View>
         );
     }
@@ -32,18 +54,47 @@ const styles = StyleSheet.create({
         marginTop: 20,
     },
     input: {
-        height: 40,
-        backgroundColor: 'red',
-        borderColor: 'blue',
-        borderWidth: 5,
-        padding: 5,
-        borderRadius: 5
+        height: 35,
+        backgroundColor: 'white',
+        borderColor: colors.magenta,
+        borderWidth: 2,
+        padding: 10,
+        borderRadius: 2,
+        marginBottom: 10
     },
-    inputWrapper: {
-        height: 42,
-        backgroundColor: colors.flareColor,
-        borderColor: 'blue',
-        borderRadius: 5
+    login: {
+        backgroundColor: colors.teal,
+        height: 35,
+        borderRadius: 8,
+        alignItems: 'center'
+    },
+    loginText: {
+        color: 'white',
+        marginTop: 7,
+        fontWeight: '100'
+    },
+    forgot: {
+        marginTop: 10,
+        alignItems: 'center'
+    },
+    forgotText: {
+        color: colors.magenta,
+        fontWeight: '100',
+        fontSize: 11,
+        textDecorationLine: 'underline'
+    },
+    facebook: {
+        marginTop: 40,
+        height: 35,
+        borderRadius: 8,
+        backgroundColor: 'blue',
+        alignItems: 'center'
+    },
+    facebookText: {
+        color: 'white',
+        marginTop: 7,
+        fontWeight: 'bold',
+        fontSize: 11
     }
 });
 

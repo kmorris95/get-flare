@@ -5,9 +5,9 @@ import {
 } from 'react-native';
 
 export const colors = {
-    flareColor: '#C10D55',
-    white: '#F7EFF2',
-    teal: '#21768C'
+    magenta: '#A61948',
+    white: '#F9F2F5',
+    teal: '#44749D'
 };
 
 export const dimensions = {

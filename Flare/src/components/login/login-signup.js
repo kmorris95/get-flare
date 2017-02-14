@@ -14,6 +14,13 @@ import {
 import { colors, dimensions } from '../../constants/flare-constants';
 
 class LoginSignUp extends Component {
+
+    navigateForward(routeName) {
+        this.props.navigator.push({
+            name: routeName
+        });
+    }
+
     render() {
         return(
             <View>
@@ -28,27 +35,19 @@ class LoginSignUp extends Component {
                 <TouchableOpacity
                   style={styles.loginButton}
                   activeOpacity={0.8}
-                  onPress={this.login}
+                  onPress={this.navigateForward.bind(this, 'LogIn')}
                 >
-                    <Text style={styles.loginText}>Login</Text>
+                    <Text style={styles.loginText}>Log In</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={styles.signUpButton}
                   activeOpacity={0.8}
-                  onPress={this.signup}
+                  onPress={this.navigateForward.bind(this, 'SignUp')}
                 >
                     <Text style={styles.signUpText}>Sign Up</Text>
                 </TouchableOpacity>
             </View>
         );
-    }
-
-    login() {
-
-    }
-
-    signup() {
-
     }
 }
 
@@ -62,7 +61,7 @@ const styles = StyleSheet.create({
         width: 150,
         height: 150,
         right: 115,
-        backgroundColor: colors.flareColor,
+        backgroundColor: colors.magenta,
         position: 'absolute',
         borderRadius: 20,
         alignItems: 'center'
@@ -71,7 +70,7 @@ const styles = StyleSheet.create({
         marginLeft: 15,
         width: 160,
         height: 45,
-        backgroundColor: colors.flareColor,
+        backgroundColor: colors.magenta,
         position: 'absolute',
         borderRadius: 15,
         bottom: 35
@@ -80,7 +79,9 @@ const styles = StyleSheet.create({
         color: colors.white,
         textAlign: 'center',
         fontWeight: '200',
-        marginTop: 10
+        marginTop: 10,
+        marginLeft: 5,
+        marginRight: 5
     },
     signUpButton: {
         width: 160,
@@ -92,11 +93,13 @@ const styles = StyleSheet.create({
         bottom: 35
     },
     signUpText: {
-        color: colors.flareColor,
+        color: colors.magenta,
         textAlign: 'center',
         fontWeight: '200',
-        marginTop: 10
+        marginTop: 10,
+        marginLeft: 5,
+        marginRight: 5
     }
 });
 
-module.exports = LoginSignUp;
+export default LoginSignUp;
