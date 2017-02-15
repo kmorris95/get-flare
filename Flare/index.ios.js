@@ -16,7 +16,7 @@ export default class Flare extends Component {
   render() {
     return (
         <Navigator
-          initialRoute={{name: 'SignUpForm'}}
+          initialRoute={{name: 'LogIn'}}
           renderScene={this.renderScene.bind(this)}
         />
     );

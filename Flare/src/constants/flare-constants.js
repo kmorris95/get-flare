@@ -6,7 +6,6 @@ import {
 
 export const colors = {
     magenta: '#A61948',
-    white: '#F9F2F5',
     teal: '#44749D'
 };
 

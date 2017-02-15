@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
+    ScrollView,
     StatusBar,
     TouchableOpacity,
     Navigator,
@@ -25,23 +26,27 @@ class LoginSignUp extends Component {
         return(
             <View>
                 <StatusBar barStyle="dark-content"/>
-                <View>
+                <ScrollView horizontal={true}>
                     <Image
                      style={styles.background}
                      source={require("../../images/flare_1.jpg")}
                     />
-                </View>
+                    <Image
+                     style={styles.background}
+                     source={require("../../images/flare_2.jpeg")}
+                    />
+                </ScrollView>
                 <View style={styles.logo}></View>
                 <TouchableOpacity
                   style={styles.loginButton}
-                  activeOpacity={0.8}
+                  activeOpacity={0.9}
                   onPress={this.navigateForward.bind(this, 'LogIn')}
                 >
                     <Text style={styles.loginText}>Log In</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={styles.signUpButton}
-                  activeOpacity={0.8}
+                  activeOpacity={0.9}
                   onPress={this.navigateForward.bind(this, 'SignUp')}
                 >
                     <Text style={styles.signUpText}>Sign Up</Text>
@@ -58,9 +63,9 @@ const styles = StyleSheet.create({
     },
     logo: {
         marginTop: 30,
-        width: 130,
-        height: 130,
-        right: 130,
+        width: 135,
+        height: 135,
+        right: 125,
         backgroundColor: colors.magenta,
         position: 'absolute',
         borderRadius: 20,
@@ -69,14 +74,14 @@ const styles = StyleSheet.create({
     loginButton: {
         marginLeft: 15,
         width: 160,
-        height: 45,
+        height: 40,
         backgroundColor: colors.magenta,
         position: 'absolute',
-        borderRadius: 15,
-        bottom: 35
+        borderRadius: 10,
+        bottom: 25
     },
     loginText: {
-        color: colors.white,
+        color: 'white',
         textAlign: 'center',
         fontWeight: '200',
         marginTop: 10,
@@ -85,12 +90,12 @@ const styles = StyleSheet.create({
     },
     signUpButton: {
         width: 160,
-        height: 45,
-        backgroundColor: colors.white,
+        height: 40,
+        backgroundColor: 'white',
         position: 'absolute',
-        borderRadius: 15,
+        borderRadius: 10,
         right: 15,
-        bottom: 35
+        bottom: 25
     },
     signUpText: {
         color: colors.magenta,
