@@ -6,7 +6,7 @@ Download React-Native: https://facebook.github.io/react-native/docs/getting-star
 
 Stop where it says "Testing your React Native Installation"
 
-lauch /Users/Rocket/Documents/get-flare/Flare/ios/Flare.xcodeproj in XCode
+launch /Users/Rocket/Documents/get-flare/Flare/ios/Flare.xcodeproj in XCode
 Hit the run button
 
 or
