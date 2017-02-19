@@ -14,7 +14,7 @@ import {
 import LoginForm from './login-form'
 import { colors } from '../../constants/flare-constants';
 import ToggleSwitch from '../../elements/toggle-switch';
-import Database from '../../database';
+import { Database } from '../../database';
 
 class SignUpForm extends Component {
 
