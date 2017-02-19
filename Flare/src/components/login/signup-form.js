@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
+    Alert,
     StatusBar,
     TouchableOpacity,
     Text,
@@ -26,19 +27,21 @@ class SignUpForm extends Component {
         this.props.navigator.pop();
     }
 
+    signUpUser() {
+        Alert.alert(":P", "test");
+    }
+
     render() {
         return(
             <View style={styles.container}>
-                <View>
+                <View style={styles.navigation}>
                     <TouchableOpacity
-                      style={styles.backButton}
                       onPress={this.navigateBack.bind(this)}
                     >
                         <Text style={styles.back}>&#60;</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                      style={styles.backButton}
-                      onPress={this.navigateBack.bind(this)}
+                      onPress={this.signUpUser.bind(this)}
                     >
                         <Text style={styles.signUp}>Sign Up</Text>
                     </TouchableOpacity>
@@ -74,6 +77,9 @@ class SignUpForm extends Component {
                       style={styles.input}
                       placeholder="Re-enter password"
                     />
+                    <Text style={styles.text}>
+                        Choose your service:
+                    </Text>
                     <ToggleSwitch left="Barber" right="Stylist"/>
                 </View>
 
@@ -87,11 +93,18 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
+    navigation: {
+        flexDirection: 'row',
+        marginTop: 30,
+        marginLeft: 10,
+        marginBottom: 20
+    },
     formContainer: {
         width: 280,
         height: 380,
         justifyContent: 'center',
-        marginLeft: 45
+        marginLeft: 45,
+        marginTop: 100
     },
     terms: {
         color: colors.magenta,
@@ -101,11 +114,6 @@ const styles = StyleSheet.create({
         left: 145,
         fontSize: 10,
         fontWeight: '500'
-    },
-    backButton: {
-        marginTop: 25,
-        marginLeft: 10,
-        width: 50
     },
     back: {
         color: colors.magenta,
@@ -123,7 +131,15 @@ const styles = StyleSheet.create({
     },
     signUp: {
         color: colors.magenta,
-        fontWeight: '200'
+        fontWeight: '200',
+        marginLeft: 290,
+        marginTop: 2
+    },
+    text: {
+        marginTop: 3,
+        marginBottom: 5,
+        color: '#A5A5A5',
+        fontWeight: '500'
     }
 });
 
