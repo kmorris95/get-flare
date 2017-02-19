@@ -14,7 +14,7 @@ import {
 import LoginForm from './login-form'
 import { colors } from '../../constants/flare-constants';
 import ToggleSwitch from '../../elements/toggle-switch';
-import { Database } from '../../database';
+import { database } from '../../database';
 
 class SignUpForm extends Component {
 
@@ -46,6 +46,9 @@ class SignUpForm extends Component {
       Alert.alert("Password mismatch", "The passwords do not match");
     } else {
       this.profile.service = this.service.whichService();
+      database.write(() => {
+        database.create('User', this.profile);
+      })
     }
   }
 
@@ -69,6 +72,7 @@ class SignUpForm extends Component {
                 style={styles.input}
                 placeholder="First Name"
                 returnKeyType="next"
+                autoCorrect={false}
                 onChangeText={(text) => this.profile.firstName = text}
                 onSubmitEditing={() => this.lastName.focus()}
                 ref={(input) => this.firstName = input}
@@ -77,6 +81,7 @@ class SignUpForm extends Component {
                 style={styles.input}
                 placeholder="Last Name"
                 returnKeyType="next"
+                autoCorrect={false}
                 onChangeText={(text) => this.profile.lastName = text}
                 onSubmitEditing={() => this.phoneNumber.focus()}
                 ref={(input) => this.lastName = input}
@@ -95,6 +100,7 @@ class SignUpForm extends Component {
                 placeholder="Email"
                 keyboardType="email-address"
                 returnKeyType="next"
+                autoCorrect={false}
                 autoCapitalize="none"
                 onChangeText={(text) => this.profile.email = text}
                 onSubmitEditing={() => this.password.focus()}
@@ -105,6 +111,7 @@ class SignUpForm extends Component {
                 placeholder="Password (min. 6 characters)"
                 secureTextEntry={true}
                 returnKeyType="next"
+                autoCorrect={false}
                 autoCapitalize="none"
                 onChangeText={(text) => this.profile.password = text}
                 onSubmitEditing={() => this.confirmPassword.focus()}
@@ -114,6 +121,7 @@ class SignUpForm extends Component {
                 style={styles.input}
                 placeholder="Re-enter password"
                 secureTextEntry={true}
+                autoCorrect={false}
                 autoCapitalize="none"
                 returnKeyType="done"
                 onChangeText={(text) => this.confirmPassword = text}
