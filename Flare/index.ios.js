@@ -13,12 +13,13 @@ import SignUp from './src/components/login/signup';
 import SignUpForm from './src/components/login/signup-form';
 
 export default class Flare extends Component {
+
   render() {
     return (
-        <Navigator
-          initialRoute={{name: 'SignUpForm'}}
-          renderScene={this.renderScene.bind(this)}
-        />
+      <Navigator
+        initialRoute={{name: 'SignUpForm'}}
+        renderScene={this.renderScene.bind(this)}
+      />
     );
   }
 

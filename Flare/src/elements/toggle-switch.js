@@ -20,6 +20,14 @@ class ToggleSwitch extends Component {
         }
     }
 
+    whichService() {
+      if (this.state.leftActive) {
+        return 'Barber';
+      } else {
+        return 'Stylist';
+      }
+    }
+
     leftToggle() {
         this.setState({
             leftActive: true,

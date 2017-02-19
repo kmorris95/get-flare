@@ -3,12 +3,12 @@ User.schema = {
   name: 'User',
   properties: {
     firstName: 'string',
-    lastName: 'string'
-    email:  'string',
-    password: 'string',
+    lastName: 'string',
+    email: 'string',
     phone: 'string',
+    password: 'string',
     service: 'string'
   }
 };
 
-export User;
+export default User;
