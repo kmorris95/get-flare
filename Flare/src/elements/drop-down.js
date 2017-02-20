@@ -19,6 +19,12 @@ class DropDown extends Component{
     }
   }
 
+  navigateForward(routeName) {
+    this.props.navigator.push({
+        name: routeName
+    });
+  }
+
   hide() {
     Animated.timing(
       this.state.position,
@@ -77,6 +83,7 @@ class DropDown extends Component{
           <TouchableOpacity
             style={styles.option}
             activeOpacity={0.9}
+            onPress={this.navigateForward.bind(this, 'LogInSignUp')}
           >
             <Text style={styles.optionText}>
               {dropDownOptions[3]}

@@ -66,6 +66,7 @@ class Main extends Component {
             {this.renderMenuToggle()}
         </View>
         <DropDown
+          navigator={this.props.navigator}
           ref={(dropDown) => this.dropDown = dropDown}
         />
       </View>
