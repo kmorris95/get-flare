@@ -23,6 +23,16 @@ class LoginForm extends Component {
     };
   }
 
+  navigateForward(routeName) {
+    this.props.navigator.push({
+        name: routeName
+    });
+  }
+
+  navigateBack() {
+    this.props.navigator.pop();
+  }
+
   submitForm() {
     let users = database.objects('User');
     let query = 'email = "' + this.loginInfo.email.trim() + '" AND password = "'
@@ -31,6 +41,7 @@ class LoginForm extends Component {
     if (result ===  undefined) {
       Alert.alert("Authentication failed", "Please try again.")
     } else {
+      this.navigateForward('Main');
       Alert.alert("DB", "" + result.firstName);
     }
   }

@@ -46,11 +46,11 @@ class SignUpForm extends Component {
       Alert.alert("Password mismatch", "The passwords do not match");
     } else {
       this.profile.service = this.service.whichService();
-      let length = database.objects('User').length;
-      Alert.alert('ngori', "" + length)
       database.write(() => {
         database.create('User', this.profile);
       })
+      Alert.alert('Login Successful');
+      this.navigateForward('LogIn');
     }
   }
 

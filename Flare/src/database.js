@@ -6,9 +6,8 @@ var Realm = require('realm');
 
 const userSchema = {
   name: 'User',
-  primaryKey: 'id',
+  primaryKey: 'email',
   properties: {
-    id: {type: 'int', indexed: true},
     firstName: 'string',
     lastName: 'string',
     email: 'string',
@@ -20,5 +19,5 @@ const userSchema = {
 
 export let database = new Realm({
   schema: [userSchema],
-  schemaVersion: 4
+  schemaVersion: 5
 });

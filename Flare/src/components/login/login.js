@@ -39,7 +39,7 @@ class LogIn extends Component {
                     <Text style={styles.welcome}>Welcome Back!</Text>
                 </View>
                 <View style={styles.formContainer}>
-                    <LoginForm/>
+                    <LoginForm navigator={this.props.navigator}/>
                 </View>
                 <Text style={styles.terms}>Terms of Service</Text>
             </View>

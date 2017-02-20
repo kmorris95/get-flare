@@ -13,3 +13,10 @@ export const dimensions = {
     screenWidth: Dimensions.get('window').width,
     screenHeight: Dimensions.get('window').height
 };
+
+export const dropDownOptions = [
+  'Profile',
+  'Appointments',
+  'Payment',
+  'Log out'
+];
