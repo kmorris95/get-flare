@@ -6,18 +6,24 @@ import {
   StyleSheet,
   Alert,
   StatusBar,
-  Text
+  ListView,
+  Text,
+  TextInput
 } from 'react-native';
 
 import { colors } from '../../constants/flare-constants';
 import DropDown from '../../elements/drop-down';
+import { people } from '../../fakeData/barberProfile';
+import Share from '../../elements/share'
 
 class Main extends Component {
 
   constructor(props) {
     super(props);
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      menu: 'inactive'
+      menu: 'inactive',
+      dataSource: ds.cloneWithRows(people)
     }
   }
 
@@ -65,6 +71,13 @@ class Main extends Component {
         <View style={styles.dropDownBar}>
             {this.renderMenuToggle()}
         </View>
+        <ListView
+          dataSource={this.state.dataSource}
+          renderRow={(person) => <Share info={person}/>}
+          renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.separator} />}
+          renderHeader={() => <TextInput style={styles.search} placeholder="Search"/>}
+          renderFooter={() => <View style={styles.loadMore}><Text>Load More</Text></View>}
+        />
         <DropDown
           navigator={this.props.navigator}
           ref={(dropDown) => this.dropDown = dropDown}
@@ -77,10 +90,9 @@ class Main extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'red'
   },
   dropDownBar: {
-    backgroundColor: 'lightgray',
+    backgroundColor: colors.lightgray,
     height: 50,
     alignItems: 'center',
     justifyContent: 'center'
@@ -91,6 +103,21 @@ const styles = StyleSheet.create({
     color: colors.magenta,
     fontWeight: '700',
     fontSize: 25
+  },
+  search: {
+    height: 25,
+    textAlign: 'center'
+  },
+  separator: {
+    flex: 1,
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: '#8E8E8E',
+  },
+  loadMore: {
+    borderRadius: 5,
+    borderWidth: StyleSheet.hairlineWidth,
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 });
 

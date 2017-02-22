@@ -6,7 +6,9 @@ import {
 
 export const colors = {
     magenta: '#A61948',
-    teal: '#44749D'
+    teal: '#44749D',
+    lightgray: '#EAEAEA',
+    gray: '#9E9E9E'
 };
 
 export const dimensions = {

@@ -3,7 +3,6 @@ import {
   View,
   Text,
   TouchableOpacity,
-  Alert,
   Animated,
   StyleSheet
 } from 'react-native';
@@ -59,6 +58,7 @@ class DropDown extends Component{
           <TouchableOpacity
             style={styles.option}
             activeOpacity={0.9}
+            onPress={this.navigateForward.bind(this, 'Profile')}
           >
             <Text style={styles.optionText}>
               {dropDownOptions[0]}
@@ -67,6 +67,7 @@ class DropDown extends Component{
           <TouchableOpacity
             style={styles.option}
             activeOpacity={0.9}
+            onPress={this.navigateForward.bind(this, 'Appointments')}
           >
             <Text style={styles.optionText}>
               {dropDownOptions[1]}
@@ -75,6 +76,7 @@ class DropDown extends Component{
           <TouchableOpacity
             style={styles.option}
             activeOpacity={0.9}
+            onPress={this.navigateForward.bind(this, 'Payment')}
           >
             <Text style={styles.optionText}>
               {dropDownOptions[2]}

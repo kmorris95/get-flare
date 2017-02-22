@@ -6,7 +6,7 @@ let jDavis = {
 
 let tWright = {
   name: 'Timera Wright',
-  shop:: 'Trust Hair Salon',
+  shop: 'Trust Hair Salon',
   service: 'Stylist'
 }
 
