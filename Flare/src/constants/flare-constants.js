@@ -8,7 +8,8 @@ export const colors = {
     magenta: '#A61948',
     teal: '#44749D',
     lightgray: '#EAEAEA',
-    gray: '#9E9E9E'
+    gray: '#9E9E9E',
+    yellow: '#FCF8B3'
 };
 
 export const dimensions = {

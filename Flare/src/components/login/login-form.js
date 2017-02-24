@@ -56,7 +56,7 @@ class LoginForm extends Component {
                 returnKeyType="next"
                 autoCorrect={false}
                 autoCapitalize="none"
-                onChangeText={(text) => this.loginInfo.email = text}
+                onChangeText={(text) => this.loginInfo.email = text.trim()}
                 onSubmitEditing={() => this.password.focus()}
                 ref={(input) => this.email = input}
               />
