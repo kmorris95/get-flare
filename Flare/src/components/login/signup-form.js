@@ -16,6 +16,7 @@ import { phoneNumberRegex, emailRegex, passwordRegex } from '../../constants/reg
 import { colors } from '../../constants/flare-constants';
 import ToggleSwitch from '../../elements/toggle-switch';
 import { database } from '../../database';
+var ImagePicker = require('react-native-image-picker');
 
 class SignUpForm extends Component {
 
@@ -37,7 +38,15 @@ class SignUpForm extends Component {
       validEmail: true,
       validPassword: true,
       validConfirmPassword: true
-    }
+    },
+    this.options = {
+      title: 'Select Profile Picture',
+      allowsEditing: true,
+      storageOptions: {
+        skipBackup: true,
+        path: 'images'
+      }
+    };
   }
 
   navigateForward(routeName) {
@@ -48,6 +57,30 @@ class SignUpForm extends Component {
 
   navigateBack() {
     this.props.navigator.pop();
+  }
+
+  getPicture() {
+    console.log(ImagePicker);
+    /*ImagePicker.showImagePicker(this.options, (response) => {
+      console.log('Response = ', response);
+
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      }
+      else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      }
+      else {
+        let source = { uri: response.uri };
+
+        // You can also display the image using data:
+        // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+
+        this.setState({
+          avatarSource: source
+        });
+      }
+    });*/
   }
 
   checkForBlanks() {
@@ -171,6 +204,17 @@ class SignUpForm extends Component {
                   <Text style={styles.signUp}>Sign Up</Text>
               </TouchableOpacity>
           </View>
+          <View style={styles.profilePictureArea}>
+            <TouchableOpacity
+              style={styles.profilePictureButton}
+              activeOpacity={0.8}
+              onPress={this.getPicture.bind(this)}
+            >
+            </TouchableOpacity>
+            <Text style={styles.profilePictureText}>
+              Add profile photo
+            </Text>
+          </View>
           <View style={styles.formContainer}>
               <TextInput
                 style={this.state.validFirstName ? styles.input : [styles.input, styles.warning]}
@@ -259,10 +303,9 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     width: 280,
-    height: 380,
+    height: 330,
     justifyContent: 'center',
-    marginLeft: 45,
-    marginTop: 100
+    marginLeft: 45
   },
   terms: {
     color: colors.magenta,
@@ -302,6 +345,24 @@ const styles = StyleSheet.create({
   warning: {
     backgroundColor: colors.yellow,
     borderColor: 'red'
+  },
+  profilePictureArea: {
+    flexDirection: 'row',
+    marginTop: 100,
+    marginLeft: 45,
+    height: 90,
+    width: 280,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  profilePictureText: {
+    color: '#A5A5A5'
+  },
+  profilePictureButton: {
+    backgroundColor: 'blue',
+    width: 90,
+    height: 90,
+    marginRight: 25
   }
 });
 

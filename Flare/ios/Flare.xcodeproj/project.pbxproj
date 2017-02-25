@@ -39,6 +39,7 @@
 		0B553C20A39B44CCA3EAD676 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F60EA10F0AB443794490DBD /* libc++.tbd */; };
 		AF03CDBC08B24D42B422E022 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A8223E4EA574F73BF2C6436 /* libz.tbd */; };
 		9D985DFC075441C7B5AACF2D /* libRNSearchBar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A735F033B3E84FF085CAF509 /* libRNSearchBar.a */; };
+		EC88875D2314419F954C014B /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 10BBCC0616794D4DB77968BF /* libRNImagePicker.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -264,6 +265,8 @@
 		3A8223E4EA574F73BF2C6436 /* libz.tbd */ = {isa = PBXFileReference; name = "libz.tbd"; path = "usr/lib/libz.tbd"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = sourcecode.text-based-dylib-definition; explicitFileType = undefined; includeInIndex = 0; };
 		C886FC0538854FE79EED6513 /* RNSearchBar.xcodeproj */ = {isa = PBXFileReference; name = "RNSearchBar.xcodeproj"; path = "../node_modules/react-native-search-bar/RNSearchBar.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		A735F033B3E84FF085CAF509 /* libRNSearchBar.a */ = {isa = PBXFileReference; name = "libRNSearchBar.a"; path = "libRNSearchBar.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		7D6A856DC73B43DB9DD07A92 /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; name = "RNImagePicker.xcodeproj"; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		10BBCC0616794D4DB77968BF /* libRNImagePicker.a */ = {isa = PBXFileReference; name = "libRNImagePicker.a"; path = "libRNImagePicker.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -294,6 +297,7 @@
 				0B553C20A39B44CCA3EAD676 /* libc++.tbd in Frameworks */,
 				AF03CDBC08B24D42B422E022 /* libz.tbd in Frameworks */,
 				9D985DFC075441C7B5AACF2D /* libRNSearchBar.a in Frameworks */,
+				EC88875D2314419F954C014B /* libRNImagePicker.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -462,6 +466,7 @@
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				DD1B9F457F664EC78A5DA713 /* RealmReact.xcodeproj */,
 				C886FC0538854FE79EED6513 /* RNSearchBar.xcodeproj */,
+				7D6A856DC73B43DB9DD07A92 /* RNImagePicker.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1002,6 +1007,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 			};
 			name = Debug;
@@ -1022,6 +1028,7 @@
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Flare.app/Flare";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1090,6 +1097,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 			};
 			name = Debug;
@@ -1121,6 +1129,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 			};
 			name = Release;
@@ -1147,6 +1156,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 			};
 			name = Debug;
@@ -1171,6 +1181,7 @@
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
