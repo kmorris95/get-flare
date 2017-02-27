@@ -1,5 +1,7 @@
 # get-flare
 
+Only works for iOS right now...
+
 If you are running MacOS:
 
 Download React-Native: https://facebook.github.io/react-native/docs/getting-started.html
