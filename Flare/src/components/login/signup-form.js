@@ -38,14 +38,6 @@ class SignUpForm extends Component {
       validEmail: true,
       validPassword: true,
       validConfirmPassword: true
-    },
-    this.options = {
-      title: 'Select Profile Picture',
-      allowsEditing: true,
-      storageOptions: {
-        skipBackup: true,
-        path: 'images'
-      }
     };
   }
 
@@ -58,29 +50,16 @@ class SignUpForm extends Component {
   navigateBack() {
     this.props.navigator.pop();
   }
-
-  getPicture() {
-    console.log(ImagePicker);
-    /*ImagePicker.showImagePicker(this.options, (response) => {
-      console.log('Response = ', response);
-
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      }
-      else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      }
-      else {
-        let source = { uri: response.uri };
-
-        // You can also display the image using data:
-        // let source = { uri: 'data:image/jpeg;base64,' + response.data };
-
-        this.setState({
-          avatarSource: source
-        });
-      }
-    });*/
+  
+  checkForUniqueEmail() {
+    let existingEmail = database.objects('User').filtered('email = "' + this.profile.email + '"');
+    if (existingEmail.length !== 0) {
+      Alert.alert("Invalid Email", "The provided email is already in use.")
+      this.setState({validEmail: false})
+      return false;
+    }
+    this.setState({validEmail: true})
+    return true;
   }
 
   checkForBlanks() {
@@ -178,13 +157,15 @@ class SignUpForm extends Component {
     if (valid) {
       valid = this.checkForm();
       if (valid) {
-        this.profile.service = this.service.whichService();
-        database.write(() => {
-          database.create('User', this.profile);
-          let length = database.objects('User').length;
-        })
-        Alert.alert('Sign Up Successful');
-        this.navigateForward('LogIn');
+        valid = this.checkForUniqueEmail();
+        if (valid) {
+          this.profile.service = this.service.whichService();
+          database.write(() => {
+            database.create('User', this.profile);
+          })
+          Alert.alert('Sign Up Successful');
+          this.navigateForward('LogIn');
+        }
       }
     }
   }
@@ -208,7 +189,6 @@ class SignUpForm extends Component {
             <TouchableOpacity
               style={styles.profilePictureButton}
               activeOpacity={0.8}
-              onPress={this.getPicture.bind(this)}
             >
             </TouchableOpacity>
             <Text style={styles.profilePictureText}>
@@ -250,7 +230,7 @@ class SignUpForm extends Component {
                 returnKeyType="next"
                 autoCorrect={false}
                 autoCapitalize="none"
-                onChangeText={(text) => this.profile.email = text.trim()}
+                onChangeText={(text) => this.profile.email = text.toLowerCase().trim()}
                 onSubmitEditing={() => this.password.focus()}
                 ref={(input) => this.email = input}
               />

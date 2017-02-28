@@ -1,11 +1,13 @@
 let jDavis = {
-  name: 'Jamal Clark',
+  firstName: 'Jamal',
+  lastName: 'Clark',
   shop: 'Vizons Barbershop',
   service: 'Barber'
 }
 
 let tWright = {
-  name: 'Timera Wright',
+  firstName: 'Timera',
+  lastName: 'Wright',
   shop: 'Trust Hair Salon',
   service: 'Stylist'
 }

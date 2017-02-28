@@ -6,10 +6,11 @@ import {
   StyleSheet,
   Alert,
   StatusBar,
-  ListView,
   Text,
   TextInput
 } from 'react-native';
+
+import { ListView } from 'realm/react-native';
 
 import { colors } from '../../constants/flare-constants';
 import DropDown from '../../elements/drop-down';
@@ -24,7 +25,11 @@ class Main extends Component {
     this.state = {
       menu: 'inactive',
       dataSource: ds.cloneWithRows(people)
-    }
+    };
+  }
+  
+  componentDidMount() {
+    
   }
 
   renderMenuToggle() {
