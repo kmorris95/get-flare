@@ -23,9 +23,10 @@ class LoginForm extends Component {
     };
   }
 
-  navigateForward(routeName) {
+  navigateForward(routeName, userEmail) {
     this.props.navigator.push({
-        name: routeName
+        name: routeName,
+        email: userEmail
     });
   }
 
@@ -41,8 +42,8 @@ class LoginForm extends Component {
     if (result ===  undefined) {
       Alert.alert("Authentication failed", "Please try again.")
     } else {
-      this.navigateForward('Main');
-      Alert.alert("DB", "" + result.firstName);
+      this.navigateForward('Main', this.loginInfo.email.trim());
+      Alert.alert("Login Successful", "Welcome to <insert name of app> " + result.firstName);
     }
   }
 

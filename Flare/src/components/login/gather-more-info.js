@@ -19,21 +19,12 @@ class GatherMoreInfo extends Component {
   constructor(props) {
     super(props);
     this.profile = {
-      firstName: '',
-      lastName: '',
-      phone: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-      service: ''
+      shopName: '',
+      shopAddress: ''
     };
     this.state = {
-      validFirstName: true,
-      validLastName: true,
-      validPhoneNumber: true,
-      validEmail: true,
-      validPassword: true,
-      validConfirmPassword: true
+      validShopName: true,
+      validShopAddress: true
     };
   }
 
@@ -61,85 +52,12 @@ class GatherMoreInfo extends Component {
   checkForBlanks() {
     let valid = true;
     let message = '';
-    if (this.profile.firstName === '') {
+    if (this.profile.shopName === '') {
       valid = false;
-      this.setState({validFirstName: false});
-      message += '- First name field is blank.\n'
+      this.setState({validShopName: false});
+      message += '- Shop name field is blank.\n'
     } else {
-      this.setState({validFirstName: true});
-    }
-    if (this.profile.lastName === '') {
-      valid = false;
-      this.setState({validLastName: false});
-      message += '- Last name field is blank.\n'
-    } else {
-     this.setState({validLastName: true});
-    }
-    if (this.profile.phone === '') {
-      valid = false;
-      this.setState({validPhoneNumber: false});
-      message += '- Phone number field is blank.\n'
-    } else {
-      this.setState({validPhoneNumber: true});
-    }
-    if (this.profile.email === '') {
-      valid = false;
-      this.setState({validEmail: false});
-      message += '- Email field is blank.\n'
-    } else {
-      this.setState({validEmail: true});
-    }
-    if (this.profile.password === '') {
-      valid = false;
-      this.setState({validPassword: false});
-      message += '- Password field is blank.\n'
-    } else {
-      this.setState({validPassword: true});
-    }
-    if (this.profile.confirmPassword === '') {
-      valid = false;
-      this.setState({validConfirmPassword: false});
-      message += '- Confirm password field is blank.\n'
-    } else {
-      this.setState({validConfirmPassword: true});
-    }
-    if (!valid) {
-      Alert.alert('Invalid input', message);
-    }
-    return valid;
-  }
-
-  checkForm() {
-    let valid = true;
-    let message = '';
-
-    if (!phoneNumberRegex.test(this.profile.phone)) {
-      valid = false;
-      this.setState({validPhoneNumber: false});
-      message += '- Phone number must be 10-11 digits.\n'
-    } else {
-      this.setState({validPhoneNumber: true});
-    }
-    if (!emailRegex.test(this.profile.email)) {
-      valid = false;
-      this.setState({validEmail: false});
-      message += '- Email must be email@domain.(com, edu, etc.)\n'
-    } else {
-     this.setState({validEmail: true});
-    }
-    if (!passwordRegex.test(this.profile.password)) {
-      valid = false;
-      this.setState({validPassword: false});
-      message += '- Password must be at least 6 characters and contain a letter and number.\n';
-    } else {
-      this.setState({validPassword: true});
-    }
-    if (this.profile.confirmPassword !== this.profile.password) {
-      valid = false;
-      this.setState({validConfirmPassword: false});
-      message += '- Passwords do not match.\n';
-    } else {
-      this.setState({validConfirmPassword: true});
+      this.setState({validShopName: true});
     }
     if (!valid) {
       Alert.alert('Invalid input', message);
@@ -151,17 +69,14 @@ class GatherMoreInfo extends Component {
     let valid = true;
     valid = this.checkForBlanks();
     if (valid) {
-      valid = this.checkForm();
+      valid = this.checkForUniqueEmail();
       if (valid) {
-        valid = this.checkForUniqueEmail();
-        if (valid) {
-          this.profile.service = this.service.whichService();
-          database.write(() => {
-            database.create('User', this.profile);
-          })
-          Alert.alert('Sign Up Successful');
-          this.navigateForward('LogIn');
-        }
+        this.profile.service = this.service.whichService();
+        database.write(() => {
+          database.create('User', this.profile);
+        })
+        Alert.alert('Sign Up Successful');
+        this.navigateForward('LogIn');
       }
     }
   }
@@ -190,63 +105,17 @@ class GatherMoreInfo extends Component {
                 placeholder="Shop Name"
                 returnKeyType="next"
                 autoCorrect={false}
-                onChangeText={(text) => this.profile.firstName = text.trim()}
-                onSubmitEditing={() => this.lastName.focus()}
-                ref={(input) => this.firstName = input}
+                onChangeText={(text) => this.profile.shopName = text.trim()}
+                onSubmitEditing={() => this.shopAddress.focus()}
               />
               <TextInput
-                style={this.state.validLastName ? styles.input : [styles.input, styles.warning]}
-                placeholder="Last Name"
+                style={this.state.validShopAddress ? styles.input : [styles.input, styles.warning]}
+                placeholder="Shop Address"
                 returnKeyType="next"
                 autoCorrect={false}
-                onChangeText={(text) => this.profile.lastName = text.trim()}
-                onSubmitEditing={() => this.phoneNumber.focus()}
-                ref={(input) => this.lastName = input}
-              />
-              <TextInput
-                style={this.state.validPhoneNumber ? styles.input : [styles.input, styles.warning]}
-                placeholder="Phone Number"
-                returnKeyType="next"
-                keyboardType="phone-pad"
-                onChangeText={(text) => this.profile.phone = text.trim()}
-                onSubmitEditing={() => this.email.focus()}
-                ref={(input) => this.phoneNumber = input}
-              />
-              <TextInput
-                style={this.state.validEmail ? styles.input : [styles.input, styles.warning]}
-                placeholder="Email"
-                keyboardType="email-address"
-                returnKeyType="next"
-                autoCorrect={false}
-                autoCapitalize="none"
-                onChangeText={(text) => this.profile.email = text.toLowerCase().trim()}
-                onSubmitEditing={() => this.password.focus()}
-                ref={(input) => this.email = input}
-              />
-              <TextInput
-                style={this.state.validPassword ? styles.input : [styles.input, styles.warning]}
-                placeholder="Password (min. 6 characters)"
-                secureTextEntry={true}
-                returnKeyType="next"
-                autoCorrect={false}
-                autoCapitalize="none"
-                onChangeText={(text) => this.profile.password = text.trim()}
-                onSubmitEditing={() => this.confirmPassword.focus()}
-                ref={(input) => this.password = input}
-              />
-              <TextInput
-                style={this.state.validConfirmPassword ? styles.input : [styles.input, styles.warning]}
-                placeholder="Re-enter password"
-                secureTextEntry={true}
-                autoCorrect={false}
-                autoCapitalize="none"
-                returnKeyType="done"
-                onChangeText={(text) => this.profile.confirmPassword = text.trim()}
-                ref={(input) => this.confirmPassword = input}
+                onChangeText={(text) => this.profile.shopAddress = text.trim()}
               />
           </View>
-
-          <Text style={styles.terms}>Terms of Service</Text>
       </View>
     );
   }
@@ -267,15 +136,6 @@ const styles = StyleSheet.create({
     height: 330,
     justifyContent: 'center',
     marginLeft: 45
-  },
-  terms: {
-    color: colors.magenta,
-    alignItems: 'center',
-    position: 'absolute',
-    bottom: 15,
-    left: 145,
-    fontSize: 10,
-    fontWeight: '500'
   },
   back: {
     color: colors.magenta,

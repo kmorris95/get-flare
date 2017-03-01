@@ -31,23 +31,23 @@ export default class Flare extends Component {
   renderScene(route, navigator) {
     switch(route.name) {
       case 'LogInSignUp':
-        return <LoginSignUp navigator={navigator} />;
+        return <LoginSignUp navigator={navigator}/>;
       case 'LogIn':
-        return <LogIn navigator={navigator} />;
+        return <LogIn navigator={navigator}/>;
       case 'SignUp':
-        return <SignUp navigator={navigator} />;
+        return <SignUp navigator={navigator}/>;
       case 'GatherMoreInfo':
-        return <GatherMoreInfo navigator={navigator} />;
+        return <GatherMoreInfo navigator={navigator} email={route.email}/>;
       case 'Main':
-        return <Main navigator={navigator} />;
+        return <Main navigator={navigator} email={route.email}/>;
       case 'Payment':
-        return <Payment navigator={navigator} />;
+        return <Payment navigator={navigator} email={route.email}/>;
       case 'Appointments':
-        return <Appointments navigator={navigator} />;
+        return <Appointments navigator={navigator} email={route.email}/>;
       case 'Profile':
-        return <Profile navigator={navigator} />;
+        return <Profile navigator={navigator} email={route.email}/>;
       case 'Settings':
-        return <Settings navigator={navigator} />;
+        return <Settings navigator={navigator} email={route.email}/>;
     }
   }
 }
