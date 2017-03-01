@@ -14,7 +14,7 @@ const userSchema = {
     password: 'string',
     confirmPassword: 'string',
     service: 'string',
-    shop: 'string',
+    shopName: 'string',
     rating: {type: 'double', optional: true},
     image: {type: 'string', optional: true},
     styles: {type: 'data', optional: true}
@@ -34,5 +34,5 @@ const shopSchema = {
 
 export let database = new Realm({
   schema: [userSchema, shopSchema],
-  schemaVersion: 11
+  schemaVersion: 12
 });

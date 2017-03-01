@@ -10,7 +10,7 @@ import {
 import LoginSignUp from './src/components/login/login-signup';
 import LogIn from './src/components/login/login';
 import SignUp from './src/components/login/signup';
-import SignUpForm from './src/components/login/signup-form';
+import GatherMoreInfo from './src/components/login/gather-more-info';
 import Main from './src/components/main/main';
 import Appointments from './src/components/main/appointments';
 import Payment from './src/components/main/payment';
@@ -22,7 +22,7 @@ export default class Flare extends Component {
   render() {
     return (
       <Navigator
-        initialRoute={{name: 'Main'}}
+        initialRoute={{name: 'GatherMoreInfo'}}
         renderScene={this.renderScene.bind(this)}
       />
     );
@@ -36,8 +36,8 @@ export default class Flare extends Component {
         return <LogIn navigator={navigator} />;
       case 'SignUp':
         return <SignUp navigator={navigator} />;
-      case 'SignUpForm':
-        return <SignUpForm navigator={navigator} />;
+      case 'GatherMoreInfo':
+        return <GatherMoreInfo navigator={navigator} />;
       case 'Main':
         return <Main navigator={navigator} />;
       case 'Payment':

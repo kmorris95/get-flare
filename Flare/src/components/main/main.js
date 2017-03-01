@@ -14,7 +14,7 @@ import { ListView } from 'realm/react-native';
 
 import { colors } from '../../constants/flare-constants';
 import DropDown from '../../elements/drop-down';
-import { people } from '../../fakeData/barberProfile';
+import { database } from '../../database';
 import Share from '../../elements/share'
 
 class Main extends Component {
@@ -22,14 +22,11 @@ class Main extends Component {
   constructor(props) {
     super(props);
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    let users = database.objects('User');
     this.state = {
       menu: 'inactive',
-      dataSource: ds.cloneWithRows(people)
+      dataSource: ds.cloneWithRows(users)
     };
-  }
-  
-  componentDidMount() {
-    
   }
 
   renderMenuToggle() {

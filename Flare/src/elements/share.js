@@ -24,7 +24,7 @@ class Share extends Component{
           activeOpacity={0.5}
         >
           <Text style={styles.name}>
-            {this.props.info.name}
+            {this.props.info.firstName + " " + this.props.info.lastName}
           </Text>
           <Text style={styles.shop}>
             {this.props.info.shop}

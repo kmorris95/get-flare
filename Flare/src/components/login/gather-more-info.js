@@ -11,14 +11,10 @@ import {
   TextInput
 } from 'react-native';
 
-import LoginForm from './login-form'
-import { phoneNumberRegex, emailRegex, passwordRegex } from '../../constants/regex';
 import { colors } from '../../constants/flare-constants';
-import ToggleSwitch from '../../elements/toggle-switch';
 import { database } from '../../database';
-var ImagePicker = require('react-native-image-picker');
 
-class SignUpForm extends Component {
+class GatherMoreInfo extends Component {
 
   constructor(props) {
     super(props);
@@ -185,20 +181,13 @@ class SignUpForm extends Component {
                   <Text style={styles.signUp}>Sign Up</Text>
               </TouchableOpacity>
           </View>
-          <View style={styles.profilePictureArea}>
-            <TouchableOpacity
-              style={styles.profilePictureButton}
-              activeOpacity={0.8}
-            >
-            </TouchableOpacity>
-            <Text style={styles.profilePictureText}>
-              Add profile photo
-            </Text>
-          </View>
+          <Text style={styles.header}>
+            Tell us more about you...
+          </Text>
           <View style={styles.formContainer}>
               <TextInput
-                style={this.state.validFirstName ? styles.input : [styles.input, styles.warning]}
-                placeholder="First Name"
+                style={this.state.validShopName ? styles.input : [styles.input, styles.warning]}
+                placeholder="Shop Name"
                 returnKeyType="next"
                 autoCorrect={false}
                 onChangeText={(text) => this.profile.firstName = text.trim()}
@@ -255,14 +244,6 @@ class SignUpForm extends Component {
                 onChangeText={(text) => this.profile.confirmPassword = text.trim()}
                 ref={(input) => this.confirmPassword = input}
               />
-              <Text style={styles.text}>
-                  Choose your service:
-              </Text>
-              <ToggleSwitch
-                left="Barber"
-                right="Stylist"
-                ref={(service) => this.service = service}
-              />
           </View>
 
           <Text style={styles.terms}>Terms of Service</Text>
@@ -316,34 +297,17 @@ const styles = StyleSheet.create({
     marginLeft: 290,
     marginTop: 2
   },
-  text: {
-    marginTop: 3,
-    marginBottom: 5,
-    color: '#A5A5A5',
+  header: {
+    marginTop: 60,
+    marginLeft: 45,
+    fontSize: 25,
+    color: colors.magenta,
     fontWeight: '500'
   },
   warning: {
     backgroundColor: colors.yellow,
     borderColor: 'red'
-  },
-  profilePictureArea: {
-    flexDirection: 'row',
-    marginTop: 100,
-    marginLeft: 45,
-    height: 90,
-    width: 280,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  profilePictureText: {
-    color: '#A5A5A5'
-  },
-  profilePictureButton: {
-    backgroundColor: 'blue',
-    width: 90,
-    height: 90,
-    marginRight: 25
   }
 });
 
-export default SignUpForm;
+export default GatherMoreInfo;
