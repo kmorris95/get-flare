@@ -1,208 +1,156 @@
 export const states = {
   alabama: {
-    name: 'Alabama',
-    cities: []
+    name: 'Alabama'
   },
   alaska: {
-    name: 'Alaska',
-    cities: []
+    name: 'Alaska'
   },
   arizona: {
-    name: 'Arizona',
-    cities: []
+    name: 'Arizona'
   },
   arkansas: {
-    name: 'Arkansas',
-    cities: []
+    name: 'Arkansas'
   },
   california: {
-    name: 'California',
-    cities: []
+    name: 'California'
   },
   colorado: {
-    name: 'Colorado',
-    cities: []
+    name: 'Colorado'
   },
   connecticut: {
-    name: 'Connecticut',
-    cities: []
+    name: 'Connecticut'
   },
   delaware: {
-    name: 'Delaware',
-    cities: []
+    name: 'Delaware'
   },
   dc: {
-    name: 'District of Columbia',
-    cities: []
+    name: 'District of Columbia'
   },
   florida: {
-    name: 'Florida',
-    cities: []
+    name: 'Florida'
   },
   georgia: {
-    name: 'Georgia',
-    cities: []
+    name: 'Georgia'
   }, 
   hawaii: {
-    name: 'Hawaii',
-    cities: []
+    name: 'Hawaii'
   },
   idaho: {
-    name: 'Idaho',
-    cities: []
+    name: 'Idaho'
   },
   illinois: {
-    name: 'Illinois',
-    cities: []
+    name: 'Illinois'
   },
   indiana: {
-    name: 'Indiana',
-    cities: []
+    name: 'Indiana'
   },
   iowa: {
-    name: 'Iowa',
-    cities: []
+    name: 'Iowa'
   },
   kansas: {
-    name: 'Kansas',
-    cities: []
+    name: 'Kansas'
   },
   kentucky: {
-    name: 'Kentucky',
-    cities: []
+    name: 'Kentucky'
   },
   louisana: {
-    name: 'Louisiana',
-    cities: []
+    name: 'Louisiana'
   },
   maine: {
-    name: 'Maine',
-    cities: []
+    name: 'Maine'
   },
   maryland: {
-    name: 'Maryland',
-    cities: []
+    name: 'Maryland'
   },
   massachusetts: {
-    name: 'Massachusetts',
-    cities: []
+    name: 'Massachusetts'
   },
   michigan: {
-    name: 'Michigan',
-    cities: []
+    name: 'Michigan'
   },
   minnesota: {
-    name: 'Minnesota',
-    cities: []
+    name: 'Minnesota'
   },
   mississippi: {
-    name: 'Mississippi',
-    cities: []
+    name: 'Mississippi'
   },
   missouri: {
-    name: 'Missouri',
-    cities: []
+    name: 'Missouri'
   },
   montana: {
-    name: 'Montana',
-    cities: []
+    name: 'Montana'
   },
   nebraska: {
-    name: 'Nebraska',
-    cities: []
+    name: 'Nebraska'
   },
   nevada: {
-    name: 'Nevada',
-    cities: []
+    name: 'Nevada'
   },
   newHampshire: {
-    name: 'New Hampshire',
-    cities: []
+    name: 'New Hampshire'
   },
   newJersey: {
-    name: 'New Jersey',
-    cities: []
+    name: 'New Jersey'
   },
   newMexico: {
-    name: 'New Mexico',
-    cities: []
+    name: 'New Mexico'
   },
   newYork: {
-    name: 'New York',
-    cities: []
+    name: 'New York'
   },
   northCarolina: {
-    name: 'North Carolina',
-    cities: []
+    name: 'North Carolina'
   }, 
   northDakota: {
-    name: 'North Dakota',
-    cities: []
+    name: 'North Dakota'
   }, 
   ohio: {
-    name: 'Ohio',
-    cities: []
+    name: 'Ohio'
   },
   oklahoma: {
-    name: 'Oklahoma',
-    cities: []
+    name: 'Oklahoma'
   },
   oregon: {
-    name: 'Oregon',
-    cities: []
+    name: 'Oregon'
   },
   pennsylvania: {
-    name: 'Pennsylvania',
-    cities: []
+    name: 'Pennsylvania'
   },
   rhodeIsland: {
-    name: 'Rhode Island',
-    cities: []
+    name: 'Rhode Island'
   },
   southCarolina: {
-    name: 'South Carolina',
-    cities: []
+    name: 'South Carolina'
   },
   southDakota: {
-    name: 'South Dakota',
-    cities: []
+    name: 'South Dakota'
   },
   tennessee: {
-    name: 'Tennessee',
-    cities: []
+    name: 'Tennessee'
   },
   texas: {
-    name: 'Texas',
-    cities: []
+    name: 'Texas'
   },
   utah: {
-    name: 'Utah',
-    cities: []
+    name: 'Utah'
   }, 
   vermont: {
-    name: 'Vermont',
-    cities: []
+    name: 'Vermont'
   },
   virginia: {
-    name: 'Virginia',
-    cities: []
+    name: 'Virginia'
   },
   washington: {
-    name: 'Washington',
-    cities: []
+    name: 'Washington'
   },
   westVirginia: {
-    name: 'West Virginia',
-    cities: []
+    name: 'West Virginia'
   },
   wisonsin: {
-    name: 'Wisconsin',
-    cities: []
+    name: 'Wisconsin'
   },
   wyoming: {
-    name: 'Wyoming',
-    cities: []
+    name: 'Wyoming'
   }
-]
 }
 
