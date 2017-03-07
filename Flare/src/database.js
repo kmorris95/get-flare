@@ -14,7 +14,7 @@ const userSchema = {
     password: 'string',
     confirmPassword: 'string',
     service: 'string',
-    shopName: 'string',
+    shopName: {type: 'string', optional: true},
     rating: {type: 'double', optional: true},
     image: {type: 'string', optional: true},
     styles: {type: 'data', optional: true}
@@ -25,14 +25,18 @@ const shopSchema = {
   name: 'Shop',
   properties: {
     name: 'string',
-    address: 'string',
-    rating: 'double',
+    /*address: 'string',
+    state: 'string',
+    city: 'string',
+    zipCode: 'string',
+    rating: {type: 'double', optional: true},
     employees: {type: 'list', objectType: 'User'},
-    image: 'string'
+    image: {type: 'string', optional: true},*/
+    compareName: 'string'
   }
 }
 
 export let database = new Realm({
   schema: [userSchema, shopSchema],
-  schemaVersion: 12
+  schemaVersion: 18
 });

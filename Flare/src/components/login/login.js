@@ -5,12 +5,14 @@ import {
     StyleSheet,
     View,
     StatusBar,
+    Alert,
     TouchableOpacity,
     Text,
     TextInput
 } from 'react-native';
 
 import LoginForm from './login-form'
+import { database } from '../../database';
 import { colors } from '../../constants/flare-constants';
 
 class LogIn extends Component {

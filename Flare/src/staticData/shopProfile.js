@@ -22,4 +22,4 @@ let alexa = {
   rating: 2.5
 }
 
-export let shop;
+export shop;

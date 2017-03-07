@@ -27,7 +27,7 @@ class Share extends Component{
             {this.props.info.firstName + " " + this.props.info.lastName}
           </Text>
           <Text style={styles.shop}>
-            {this.props.info.shop}
+            {this.props.info.shopName}
           </Text>
         </TouchableOpacity>
         <View style={styles.placeholder}></View>

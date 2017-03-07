@@ -21,6 +21,9 @@ class Main extends Component {
 
   constructor(props) {
     super(props);
+    let user = database.objects('User').filtered('email = "' + this.props.email + '"');
+    user = user[0];
+    Alert.alert("Welcome " + user.firstName);
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     let users = database.objects('User');
     this.state = {

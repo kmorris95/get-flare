@@ -12,52 +12,95 @@ import {
 } from 'react-native';
 
 import { colors } from '../../constants/flare-constants';
+import { zipCodeRegex } from '../../constants/regex';
 import { database } from '../../database';
 
 class GatherMoreInfo extends Component {
 
   constructor(props) {
     super(props);
-    this.profile = {
-      shopName: '',
-      shopAddress: ''
+    this.shop = {
+      name: '',
+      address: '',
+      state: '',
+      city: '',
+      zipCode: '',
+      compareName: ''
     };
     this.state = {
       validShopName: true,
-      validShopAddress: true
+      validShopAddress: true,
+      validShopState: true,
+      validShopCity: true,
+      validShopZipCode: true
     };
   }
 
   navigateForward(routeName) {
     this.props.navigator.push({
-        name: routeName
+        name: routeName,
+        email: this.props.email
     });
   }
 
   navigateBack() {
     this.props.navigator.pop();
   }
-  
-  checkForUniqueEmail() {
-    let existingEmail = database.objects('User').filtered('email = "' + this.profile.email + '"');
-    if (existingEmail.length !== 0) {
-      Alert.alert("Invalid Email", "The provided email is already in use.")
-      this.setState({validEmail: false})
-      return false;
-    }
-    this.setState({validEmail: true})
-    return true;
-  }
 
   checkForBlanks() {
     let valid = true;
     let message = '';
-    if (this.profile.shopName === '') {
+    if (this.shop.name === '') {
       valid = false;
       this.setState({validShopName: false});
       message += '- Shop name field is blank.\n'
     } else {
       this.setState({validShopName: true});
+    }
+    if (this.shop.address === '') {
+      valid = false;
+      this.setState({validShopAddress: false});
+      message += '- Shop address field is blank.\n'
+    } else {
+      this.setState({validShopAddress: true});
+    }
+    if (this.shop.state === '') {
+      valid = false;
+      this.setState({validShopState: false});
+      message += '- Shop state field is blank.\n'
+    } else {
+      this.setState({validShopState: true});
+    }
+    if (this.shop.city === '') {
+      valid = false;
+      this.setState({validShopCity: false});
+      message += '- Shop city field is blank.\n'
+    } else {
+      this.setState({validShopCity: true});
+    }
+    if (this.shop.zipCode === '') {
+      valid = false;
+      this.setState({validShopZipCode: false});
+      message += '- Shop zip code field is blank.\n'
+    } else {
+      this.setState({validShopZipCode: true});
+    }
+    if (!valid) {
+      Alert.alert('Invalid input', message);
+    }
+    return valid;
+  }
+
+  checkZipCode() {
+    let valid = true;
+    let message = '';
+
+    if (!zipCodeRegex.test(this.shop.zipCode)) {
+      valid = false;
+      this.setState({validShopZipCode: false});
+      message += '- Invalid zip code (must be five digits).\n'
+    } else {
+      this.setState({validShopZipCode: true});
     }
     if (!valid) {
       Alert.alert('Invalid input', message);
@@ -69,14 +112,24 @@ class GatherMoreInfo extends Component {
     let valid = true;
     valid = this.checkForBlanks();
     if (valid) {
-      valid = this.checkForUniqueEmail();
+      valid = this.checkZipCode();
       if (valid) {
-        this.profile.service = this.service.whichService();
+        this.shop.compareName = this.shop.name.toUpperCase().replace(/\s/g, "");
         database.write(() => {
-          database.create('User', this.profile);
+          let user = database.objects('User').filtered('email = "' + this.props.email + '"');
+          user.shopName = this.shop.name;
+
+          let dbShop = database.objects('Shop').filtered('compareName = "' + this.shop.compareName + '"');
+          dbShop = dbShop[0];
+          if (dbShop === undefined) {
+            this.shop.employees = [user];
+            database.create('Shop', this.shop);
+          } else {
+            dbShop.employees.push(user);
+          }
         })
         Alert.alert('Sign Up Successful');
-        this.navigateForward('LogIn');
+        this.navigateForward('Main');
       }
     }
   }
@@ -97,7 +150,7 @@ class GatherMoreInfo extends Component {
               </TouchableOpacity>
           </View>
           <Text style={styles.header}>
-            Tell us more about you...
+            Tell us more about your shop...
           </Text>
           <View style={styles.formContainer}>
               <TextInput
@@ -105,15 +158,44 @@ class GatherMoreInfo extends Component {
                 placeholder="Shop Name"
                 returnKeyType="next"
                 autoCorrect={false}
-                onChangeText={(text) => this.profile.shopName = text.trim()}
+                onChangeText={(text) => this.shop.name = text.trim()}
                 onSubmitEditing={() => this.shopAddress.focus()}
               />
               <TextInput
                 style={this.state.validShopAddress ? styles.input : [styles.input, styles.warning]}
-                placeholder="Shop Address"
+                placeholder="Address"
                 returnKeyType="next"
                 autoCorrect={false}
-                onChangeText={(text) => this.profile.shopAddress = text.trim()}
+                onChangeText={(text) => this.shop.address = text.trim()}
+                onSubmitEditing={() => this.shopState.focus()}
+                ref={(input) => this.shopAddress = input}
+              />
+              <TextInput
+                style={this.state.validShopState ? styles.input : [styles.input, styles.warning]}
+                placeholder="State"
+                returnKeyType="next"
+                autoCorrect={false}
+                onChangeText={(text) => this.shop.state = text.trim()}
+                onSubmitEditing={() => this.shopCity.focus()}
+                ref={(input) => this.shopState = input}
+              />
+              <TextInput
+                style={this.state.validShopCity ? styles.input : [styles.input, styles.warning]}
+                placeholder="City"
+                returnKeyType="next"
+                autoCorrect={false}
+                onChangeText={(text) => this.shop.city = text.trim()}
+                onSubmitEditing={() => this.shopZipCode.focus()}
+                ref={(input) => this.shopCity = input}
+              />
+              <TextInput
+                style={this.state.validShopZipCode ? styles.input : [styles.input, styles.warning]}
+                placeholder="Zip Code"
+                returnKeyType="done"
+                autoCorrect={false}
+                keyboardType={'number-pad'}
+                onChangeText={(text) => this.shop.zipCode = text.trim()}
+                ref={(input) => this.shopZipCode = input}
               />
           </View>
       </View>
@@ -133,7 +215,7 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     width: 280,
-    height: 330,
+    height: 240,
     justifyContent: 'center',
     marginLeft: 45
   },
@@ -160,7 +242,7 @@ const styles = StyleSheet.create({
   header: {
     marginTop: 60,
     marginLeft: 45,
-    fontSize: 25,
+    fontSize: 20,
     color: colors.magenta,
     fontWeight: '500'
   },

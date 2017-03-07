@@ -1,4 +1,7 @@
 export const states = {
+  nothing: {
+    name: 'Select a state'
+  },
   alabama: {
     name: 'Alabama'
   },

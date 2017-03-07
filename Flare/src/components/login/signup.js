@@ -41,16 +41,17 @@ class SignUp extends Component {
     };
   }
 
-  navigateForward(routeName) {
+  navigateForward(routeName, email) {
     this.props.navigator.push({
-        name: routeName
+        name: routeName,
+        email: email
     });
   }
 
   navigateBack() {
     this.props.navigator.pop();
   }
-  
+
   checkForUniqueEmail() {
     let existingEmail = database.objects('User').filtered('email = "' + this.profile.email + '"');
     if (existingEmail.length !== 0) {
@@ -164,7 +165,7 @@ class SignUp extends Component {
             database.create('User', this.profile);
           })
           Alert.alert('Sign Up Successful');
-          this.navigateForward('LogIn');
+          this.navigateForward('GatherMoreInfo', this.profile.email);
         }
       }
     }
@@ -182,7 +183,7 @@ class SignUp extends Component {
               <TouchableOpacity
                 onPress={this.submitForm.bind(this)}
               >
-                  <Text style={styles.signUp}>Nex</Text>
+                  <Text style={styles.signUp}>Next &#62;</Text>
               </TouchableOpacity>
           </View>
           <View style={styles.profilePictureArea}>
