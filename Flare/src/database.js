@@ -9,7 +9,7 @@ const userSchema = {
   properties: {
     firstName: 'string',
     lastName: 'string',
-    email: 'string',
+    email: {type: 'string', indexed: true},
     phone: 'string',
     password: 'string',
     confirmPassword: 'string',
@@ -25,18 +25,18 @@ const shopSchema = {
   name: 'Shop',
   properties: {
     name: 'string',
-    /*address: 'string',
+    address: 'string',
     state: 'string',
     city: 'string',
     zipCode: 'string',
     rating: {type: 'double', optional: true},
     employees: {type: 'list', objectType: 'User'},
-    image: {type: 'string', optional: true},*/
+    image: {type: 'string', optional: true},
     compareName: 'string'
   }
 }
 
 export let database = new Realm({
   schema: [userSchema, shopSchema],
-  schemaVersion: 18
+  schemaVersion: 22
 });

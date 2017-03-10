@@ -163,8 +163,7 @@ class SignUp extends Component {
           this.profile.service = this.service.whichService();
           database.write(() => {
             database.create('User', this.profile);
-          })
-          Alert.alert('Sign Up Successful');
+          });
           this.navigateForward('GatherMoreInfo', this.profile.email);
         }
       }

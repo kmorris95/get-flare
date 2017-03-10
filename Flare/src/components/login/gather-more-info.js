@@ -25,7 +25,8 @@ class GatherMoreInfo extends Component {
       state: '',
       city: '',
       zipCode: '',
-      compareName: ''
+      compareName: '',
+      employees: []
     };
     this.state = {
       validShopName: true,
@@ -117,12 +118,13 @@ class GatherMoreInfo extends Component {
         this.shop.compareName = this.shop.name.toUpperCase().replace(/\s/g, "");
         database.write(() => {
           let user = database.objects('User').filtered('email = "' + this.props.email + '"');
+          user = user[0];
           user.shopName = this.shop.name;
 
           let dbShop = database.objects('Shop').filtered('compareName = "' + this.shop.compareName + '"');
           dbShop = dbShop[0];
           if (dbShop === undefined) {
-            this.shop.employees = [user];
+            this.shop.employees.push(user);
             database.create('Shop', this.shop);
           } else {
             dbShop.employees.push(user);

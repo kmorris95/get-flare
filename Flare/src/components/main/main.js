@@ -15,21 +15,29 @@ import { ListView } from 'realm/react-native';
 import { colors } from '../../constants/flare-constants';
 import DropDown from '../../elements/drop-down';
 import { database } from '../../database';
-import Share from '../../elements/share'
+import Share from '../../elements/share';
+var SearchBar = require('react-native-search-bar');
+
+let ds;
+let users;
 
 class Main extends Component {
 
   constructor(props) {
     super(props);
-    let user = database.objects('User').filtered('email = "' + this.props.email + '"');
+    users = database.objects('User');
+    let user = users.filtered('email = "' + this.props.email + '"');
     user = user[0];
-    Alert.alert("Welcome " + user.firstName);
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    let users = database.objects('User');
+    ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
       menu: 'inactive',
-      dataSource: ds.cloneWithRows(users)
+      dataSource: ds.cloneWithRows(users),
+      searchQuery: ''
     };
+  }
+
+  componentDidMount() {
+    this.refs.searchBar.focus();
   }
 
   renderMenuToggle() {
@@ -60,6 +68,23 @@ class Main extends Component {
     this.setState({menu: 'inactive'});
   }
 
+  searchStuff = () => {
+    let results = [];
+    for (var i = 0; i < users.length; i++) {
+      let person = users[i];
+      let fullName = person.firstName + ' ' + person.lastName;
+      if (fullName.includes(this.state.searchQuery)) {
+        results.push(person);
+      }
+    }
+    this.setState({dataSource: ds.cloneWithRows(results)});
+  }
+
+  clearSearch = () => {
+    Alert.alert('fnioew', 'fewoufu');
+    //this.setState({searchResults: this.users});
+  }
+
   navigateForward(routeName) {
     this.props.navigator.push({
         name: routeName
@@ -74,13 +99,19 @@ class Main extends Component {
     return(
       <View style={styles.container}>
         <View style={styles.dropDownBar}>
-            {this.renderMenuToggle()}
+            {this.renderMenuToggle.bind(this)}
         </View>
+        <SearchBar
+          ref='searchBar'
+          placeholder='Search'
+          onChangeText={(text) => {this.setState({searchQuery: text.trim()}); if (!text) this.setState({dataSource: ds.cloneWithRows(users)});}}
+          onSearchButtonPress={(text) => {this.searchStuff()}}
+          onCancelButtonPress={(text) => {this.clearSearch()}}
+        />
         <ListView
           dataSource={this.state.dataSource}
-          renderRow={(person) => <Share info={person}/>}
+          renderRow={(person) => <Share info={person} navigator={navigator}/>}
           renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.separator} />}
-          renderHeader={() => <TextInput style={styles.search} placeholder="Search"/>}
           renderFooter={() => <View style={styles.loadMore}><Text>Load More</Text></View>}
         />
         <DropDown
@@ -108,10 +139,6 @@ const styles = StyleSheet.create({
     color: colors.magenta,
     fontWeight: '700',
     fontSize: 25
-  },
-  search: {
-    height: 25,
-    textAlign: 'center'
   },
   separator: {
     flex: 1,
