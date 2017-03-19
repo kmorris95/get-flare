@@ -81,8 +81,7 @@ class Main extends Component {
   }
 
   clearSearch = () => {
-    Alert.alert('fnioew', 'fewoufu');
-    //this.setState({searchResults: this.users});
+    this.setState({dataSource: ds.cloneWithRows(users)});
   }
 
   navigateForward(routeName) {
@@ -110,7 +109,7 @@ class Main extends Component {
         />
         <ListView
           dataSource={this.state.dataSource}
-          renderRow={(person) => <Share info={person} navigator={navigator}/>}
+          renderRow={(person) => <Share info={person} navigator={this.props.navigator}/>}
           renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.separator} />}
           renderFooter={() => <View style={styles.loadMore}><Text>Load More</Text></View>}
         />

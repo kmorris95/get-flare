@@ -10,9 +10,10 @@ import { colors } from '../constants/flare-constants';
 
 class Share extends Component{
 
-  navigateForward(routeName) {
+  navigateForward(routeName, email) {
     this.props.navigator.push({
-        name: routeName
+        name: routeName,
+        email: email
     });
   }
 
@@ -21,6 +22,7 @@ class Share extends Component{
       <View style={styles.container}>
         <TouchableOpacity
           style={styles.info}
+          onPress={this.navigateForward.bind(this, 'Profile', this.props.info.email)}
           activeOpacity={0.5}
         >
           <Text style={styles.name}>

@@ -10,13 +10,16 @@ import { colors } from '../constants/flare-constants';
 
 class TopBar extends Component{
 
-
+  navigateBack() {
+    this.props.navigator.pop();
+  }
 
   render() {
     return(
       <View style={styles.container}>
         <TouchableOpacity
           activeOpacity={0.8}
+          onPress={this.navigateBack.bind(this)}
         >
           <Text style={styles.back}>
             &#60;

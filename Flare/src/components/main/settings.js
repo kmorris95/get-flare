@@ -14,7 +14,7 @@ class Settings extends Component{
   render() {
     return(
       <View style={styles.container}>
-        <TopBar text="Profile" navigator={navigator}/>
+        <TopBar text="Profile" navigator={this.props.navigator}/>
         <View style={styles.imagePlaceholder}></View>
         <TextInput
           style={styles.input}
