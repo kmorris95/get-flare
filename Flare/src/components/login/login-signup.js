@@ -47,7 +47,7 @@ class LoginSignUp extends Component {
                 <TouchableOpacity
                   style={styles.signUpButton}
                   activeOpacity={0.9}
-                  onPress={this.navigateForward.bind(this, 'SignUpForm')}
+                  onPress={this.navigateForward.bind(this, 'SignUp')}
                 >
                     <Text style={styles.signUpText}>Sign Up</Text>
                 </TouchableOpacity>

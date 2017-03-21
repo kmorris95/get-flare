@@ -22,7 +22,7 @@ export default class Flare extends Component {
   render() {
     return (
       <Navigator
-        initialRoute={{name: 'Main'}}
+        initialRoute={{name: 'SignUp'}}
         renderScene={this.renderScene.bind(this)}
       />
     );

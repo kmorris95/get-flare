@@ -18,6 +18,13 @@ import ToggleSwitch from '../../elements/toggle-switch';
 import { database } from '../../database';
 var ImagePicker = require('react-native-image-picker');
 
+var options = {
+  /*storageOptions: {
+    skipBackup: true,
+    path: 'images'
+  }*/
+};
+
 class SignUp extends Component {
 
   constructor(props) {
@@ -29,7 +36,8 @@ class SignUp extends Component {
       email: '',
       password: '',
       confirmPassword: '',
-      service: ''
+      service: '',
+      image: ''
     };
     this.state = {
       validFirstName: true,
@@ -37,7 +45,8 @@ class SignUp extends Component {
       validPhoneNumber: true,
       validEmail: true,
       validPassword: true,
-      validConfirmPassword: true
+      validConfirmPassword: true,
+      validImage: false
     };
   }
 
@@ -170,6 +179,31 @@ class SignUp extends Component {
     }
   }
 
+  chooseImage() {
+    ImagePicker.showImagePicker(options, (response) => {
+      console.log('Response = ', response);
+
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      }
+      else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      }
+      else {
+        console.log(success)
+        let source = { uri: response.uri };
+
+        // You can also display the image using data:
+        // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+
+        this.setState({
+          avatarSource: source
+        });
+        console.log(source)
+      }
+    });
+  }
+
   render() {
     return(
       <View style={styles.container}>
@@ -189,6 +223,7 @@ class SignUp extends Component {
             <TouchableOpacity
               style={styles.profilePictureButton}
               activeOpacity={0.8}
+              onPress={this.chooseImage.bind(this)}
             >
             </TouchableOpacity>
             <Text style={styles.profilePictureText}>
