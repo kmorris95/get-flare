@@ -173,15 +173,6 @@ class GatherMoreInfo extends Component {
                 ref={(input) => this.shopAddress = input}
               />
               <TextInput
-                style={this.state.validShopState ? styles.input : [styles.input, styles.warning]}
-                placeholder="State"
-                returnKeyType="next"
-                autoCorrect={false}
-                onChangeText={(text) => this.shop.state = text.trim()}
-                onSubmitEditing={() => this.shopCity.focus()}
-                ref={(input) => this.shopState = input}
-              />
-              <TextInput
                 style={this.state.validShopCity ? styles.input : [styles.input, styles.warning]}
                 placeholder="City"
                 returnKeyType="next"
@@ -189,6 +180,15 @@ class GatherMoreInfo extends Component {
                 onChangeText={(text) => this.shop.city = text.trim()}
                 onSubmitEditing={() => this.shopZipCode.focus()}
                 ref={(input) => this.shopCity = input}
+              />
+              <TextInput
+                style={this.state.validShopState ? styles.input : [styles.input, styles.warning]}
+                placeholder="State"
+                returnKeyType="next"
+                autoCorrect={false}
+                onChangeText={(text) => this.shop.state = text.trim()}
+                onSubmitEditing={() => this.shopCity.focus()}
+                ref={(input) => this.shopState = input}
               />
               <TextInput
                 style={this.state.validShopZipCode ? styles.input : [styles.input, styles.warning]}

@@ -36,6 +36,20 @@ const shopSchema = {
   }
 }
 
+const customerSchema = {
+  name: 'Customer',
+  primaryKey: 'email',
+  properties: {
+    firstName: 'string',
+    lastName: 'string',
+    email: {type: 'string', indexed: true},
+    phone: 'string',
+    password: 'string',
+    confirmPassword: 'string',
+    service: 'string'
+  }
+};
+
 export let database = new Realm({
   schema: [userSchema, shopSchema],
   schemaVersion: 22

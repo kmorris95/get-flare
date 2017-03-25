@@ -20,13 +20,14 @@ var SearchBar = require('react-native-search-bar');
 
 let ds;
 let users;
+let user;
 
 class Main extends Component {
 
   constructor(props) {
     super(props);
     users = database.objects('User');
-    let user = users.filtered('email = "' + this.props.email + '"');
+    user = users.filtered('email = "' + this.props.email + '"');
     user = user[0];
     ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
@@ -98,7 +99,7 @@ class Main extends Component {
     return(
       <View style={styles.container}>
         <View style={styles.dropDownBar}>
-            {this.renderMenuToggle.bind(this)}
+          {this.renderMenuToggle()}
         </View>
         <SearchBar
           ref='searchBar'
@@ -116,6 +117,7 @@ class Main extends Component {
         <DropDown
           navigator={this.props.navigator}
           ref={(dropDown) => this.dropDown = dropDown}
+          email={"kmorris95@comcast.net"}
         />
       </View>
     );

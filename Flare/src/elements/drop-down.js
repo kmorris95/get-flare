@@ -4,6 +4,7 @@ import {
   Text,
   TouchableOpacity,
   Animated,
+  Alert,
   StyleSheet
 } from 'react-native';
 
@@ -12,7 +13,6 @@ import { dropDownOptions, colors } from '../constants/flare-constants';
 class DropDown extends Component{
   constructor(props) {
     super(props);
-
     this.state = {
       position: new Animated.Value(0)
     }
@@ -20,7 +20,8 @@ class DropDown extends Component{
 
   navigateForward(routeName) {
     this.props.navigator.push({
-        name: routeName
+        name: routeName,
+        email: this.props.email
     });
   }
 
@@ -58,7 +59,7 @@ class DropDown extends Component{
           <TouchableOpacity
             style={styles.option}
             activeOpacity={0.9}
-            onPress={this.navigateForward.bind(this, 'Profile')}
+            onPress={this.navigateForward.bind(this, 'EditProfile')}
           >
             <Text style={styles.optionText}>
               {dropDownOptions[0]}
