@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
     textContainer: {
-        marginTop: 75,
+        marginTop: 140,
         marginLeft: 15
     },
     formContainer: {

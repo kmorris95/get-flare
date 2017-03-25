@@ -35,7 +35,7 @@ class LoginForm extends Component {
   }
 
   submitForm() {
-    let users = database.objects('User');
+    let users = database.objects('Customer');
     let query = 'email = "' + this.loginInfo.email.trim() + '" AND password = "'
       + this.loginInfo.password + '"'
     let result = users.filtered(query)[0];
@@ -43,7 +43,7 @@ class LoginForm extends Component {
       Alert.alert("Authentication failed", "Please try again.")
     } else {
       this.navigateForward('Main', this.loginInfo.email.trim());
-      Alert.alert("Login Successful", "Welcome to <insert name of app> " + result.firstName);
+      Alert.alert("Login Successful", "Welcome to <insert name of app> " + result.firstName + "!");
     }
   }
 
@@ -83,15 +83,16 @@ class LoginForm extends Component {
               >
                   <Text style={styles.forgotText}>Forgot Password</Text>
               </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.facebook}
-                activeOpacity={0.9}>
-                  <Text style={styles.facebookText}>Facebook</Text>
-              </TouchableOpacity>
           </View>
       );
   }
 }
+
+/*<TouchableOpacity
+  style={styles.facebook}
+  activeOpacity={0.9}>
+    <Text style={styles.facebookText}>Facebook</Text>
+</TouchableOpacity>*/
 
 const styles = StyleSheet.create({
   container: {

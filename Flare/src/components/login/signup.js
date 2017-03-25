@@ -19,10 +19,6 @@ import { database } from '../../database';
 var ImagePicker = require('react-native-image-picker');
 
 var options = {
-  /*storageOptions: {
-    skipBackup: true,
-    path: 'images'
-  }*/
 };
 
 class SignUp extends Component {
@@ -62,7 +58,7 @@ class SignUp extends Component {
   }
 
   checkForUniqueEmail() {
-    let existingEmail = database.objects('User').filtered('email = "' + this.profile.email + '"');
+    let existingEmail = database.objects('Customer').filtered('email = "' + this.profile.email + '"');
     if (existingEmail.length !== 0) {
       Alert.alert("Invalid Email", "The provided email is already in use.")
       this.setState({validEmail: false})
@@ -171,9 +167,9 @@ class SignUp extends Component {
         if (valid) {
           this.profile.service = this.service.whichService();
           database.write(() => {
-            database.create('User', this.profile);
+            database.create('Customer', this.profile);
           });
-          this.navigateForward('GatherMoreInfo', this.profile.email);
+          this.navigateForward('Main', this.profile.email);
         }
       }
     }

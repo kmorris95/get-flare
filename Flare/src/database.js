@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 var Realm = require('realm');
 
+/* will become barber schema in other app */
 const userSchema = {
   name: 'User',
   primaryKey: 'email',
@@ -45,12 +46,11 @@ const customerSchema = {
     email: {type: 'string', indexed: true},
     phone: 'string',
     password: 'string',
-    confirmPassword: 'string',
     service: 'string'
   }
 };
 
 export let database = new Realm({
-  schema: [userSchema, shopSchema],
+  schema: [userSchema, shopSchema, customerSchema],
   schemaVersion: 22
 });
