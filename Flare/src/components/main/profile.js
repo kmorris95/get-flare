@@ -3,12 +3,19 @@ import {
   View,
   StyleSheet,
   Text,
+  ScrollView,
   Alert,
+  PickerIOS,
+  TouchableOpacity,
   ListView
 } from 'react-native';
 
+var PickerItemIOS = PickerIOS.Item;
+
 import { database } from '../../database';
 import TopBar from '../../elements/top-bar';
+import VerticalSelect from '../../elements/vertical-select';
+import HorizontalSelect from '../../elements/horizontal-select';
 import StyleItem from '../../elements/style-item';
 import { colors } from '../../constants/flare-constants';
 import { hairstyles } from '../../staticData/hairstyles';
@@ -25,9 +32,8 @@ class Profile extends Component{
     user = user[0];
     let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      dataSource: ds.cloneWithRows(hairstyles),
-      days: ds.cloneWithRows(this.getDays()),
-      times: ds.cloneWithRows(this.getTimes()),
+      days: this.getDays(),
+      times: this.getTimes(),
       appointmentDate: '',
       appointmentTime: ''
     };
@@ -45,17 +51,15 @@ class Profile extends Component{
     let days = [];
     let today = new Date();
     let year = today.getFullYear();
-    for (let i = 0; i < 7; i++) {
+    for (let i = 0; i < 8; i++) {
       let today_day = today.getDate() + 1;
       day = new Date(today.setDate(today_day));
       let string = day.toDateString();
       string = string.replace(year, '');
       let remove = string.substring(3, 7);
-      day.text = string.replace(remove, '').trim();
-      day.active = false;
+      day = string.replace(remove, '').trim();
       days.push(day);
     }
-    console.log(days);
     return days;
   }
 
@@ -64,18 +68,19 @@ class Profile extends Component{
     let start = moment('04/10/1995 8:00');
     for (var i = 0; i < 21; i++) {
       let interval = 30 * i;
-      let time = {};
-      time.text = moment(start).add(interval, 'minutes').format('h:mm');
-      time.active = false;
+      let time = moment(start).add(interval, 'minutes').format('hh:mm');
       times.push(time);
     }
-    console.log(times);
     return times;
+  }
+
+  submit() {
+    Alert.alert(this.state.appointmentDate, this.state.appointmentTime)
   }
 
   render() {
     return(
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <TopBar navigator={this.props.navigator}/>
         <View style={styles.image}></View>
         <View style={styles.contact}>
@@ -86,29 +91,25 @@ class Profile extends Component{
             1234 Marshall Rd. Phila, PA 19131
           </Text>
         </View>
-        <View style={{maxHeight: 291}}>
-          <ListView
-            dataSource={this.state.dataSource}
-            renderRow={(style) => <StyleItem item={style}/>}
-            renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.separator}/>}
-          />
-        </View>
+        <VerticalSelect list={hairstyles} maxHeight={245}/>
         <View style={styles.todayArea}>
           <Text style={styles.today}>Today: {this.today()}</Text>
+          <Text style={styles.today}>Choose an appointment date and time:</Text>
         </View>
-        <View>
-          <ListView
-            dataSource={this.state.days}
-            renderRow={(day) => <Schedule item={day}/>}
-            horizontal={true}
-          />
-          <ListView
-            dataSource={this.state.times}
-            renderRow={(time) => <Schedule item={time}/>}
-            horizontal={true}
-          />
-        </View>
-      </View>
+        <HorizontalSelect list={this.state.days}/>
+        <HorizontalSelect list={this.state.times}/>
+        <TouchableOpacity
+          style={styles.button}
+          activeOpacity={0.8}
+          onPress={this.submit.bind(this)}
+        >
+          <Text
+            style={styles.buttonText}
+          >
+            Book Now
+          </Text>
+        </TouchableOpacity>
+      </ScrollView>
     )
   }
 }
@@ -154,6 +155,16 @@ const styles = StyleSheet.create({
     color: colors.teal,
     fontSize: 16,
     fontWeight: '700'
+  },
+  button: {
+    backgroundColor: colors.teal,
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 400
+  },
+  buttonText: {
+    color: 'white'
   }
 });
 

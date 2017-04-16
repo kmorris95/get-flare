@@ -20,16 +20,23 @@ class Schedule extends Component {
     }
 
     chosen() {
-      return this.props.item.text;
+      if (!this.state.active) {
+        this.setState({active: true});
+      } else {
+        this.setState({active: false});
+      }
+      //return this.props.item.text;
     }
 
     render() {
         return(
-            <View
-              style={[styles.container, this.props.item.active ? styles.active : styles.notActive]}
+            <TouchableHighlight
+              style={[styles.container, this.state.active ? styles.active : styles.notActive]}
+              onPress={this.chosen.bind(this)}
+              underlayColor={colors.teal}
             >
               <Text style={styles.text}>{this.props.item.text}</Text>
-            </View>
+            </TouchableHighlight>
         );
     }
 }

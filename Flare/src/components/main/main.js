@@ -7,7 +7,8 @@ import {
   Alert,
   StatusBar,
   Text,
-  TextInput
+  TextInput,
+  TouchableOpacity
 } from 'react-native';
 
 import { ListView } from 'realm/react-native';
@@ -99,7 +100,6 @@ class Main extends Component {
     return(
       <View style={styles.container}>
         <View style={styles.dropDownBar}>
-          {this.renderMenuToggle()}
         </View>
         <SearchBar
           ref='searchBar'
@@ -112,13 +112,13 @@ class Main extends Component {
           dataSource={this.state.dataSource}
           renderRow={(person) => <Share info={person} navigator={this.props.navigator}/>}
           renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.separator} />}
-          renderFooter={() => <View style={styles.loadMore}><Text>Load More</Text></View>}
+          renderFooter={() => <View style={styles.extraBottom}></View>}
         />
-        <DropDown
-          navigator={this.props.navigator}
-          ref={(dropDown) => this.dropDown = dropDown}
-          email={"kmorris95@comcast.net"}
-        />
+        <TouchableOpacity
+          style={styles.flare}
+          activeOpacity={0.8}
+        >
+        </TouchableOpacity>
       </View>
     );
   }
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
   },
   dropDownBar: {
     backgroundColor: colors.lightgray,
-    height: 50,
+    height: 40,
     alignItems: 'center',
     justifyContent: 'center'
   },
@@ -146,11 +146,18 @@ const styles = StyleSheet.create({
     height: StyleSheet.hairlineWidth,
     backgroundColor: '#8E8E8E',
   },
-  loadMore: {
+  flare: {
+    position: 'absolute',
+    top: 610,
+    left: 162,
+    height: 53,
+    width: 53,
     borderRadius: 5,
-    borderWidth: StyleSheet.hairlineWidth,
-    alignItems: 'center',
-    justifyContent: 'center'
+    backgroundColor: 'red'
+  },
+  extraBottom: {
+    height: 60,
+    backgroundColor: colors.lightgray,
   }
 });
 
