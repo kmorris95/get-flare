@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.lightgray,
     height: 50,
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   back: {
     marginLeft: 10,
@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
   pageHeader: {
     marginHorizontal: 139,
     marginTop: 23,
+    width: 200,
     color: colors.teal,
     fontSize: 17,
     fontWeight: '500'

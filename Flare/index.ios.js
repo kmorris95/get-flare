@@ -16,6 +16,7 @@ import Payment from './src/components/main/payment';
 import Profile from './src/components/main/profile';
 import EditProfile from './src/components/main/editProfile';
 import Settings from './src/components/main/settings';
+import Results from './src/components/main/results';
 
 export default class Flare extends Component {
 
@@ -50,6 +51,8 @@ export default class Flare extends Component {
         return <EditProfile navigator={navigator} email={route.email}/>;
       case 'Settings':
         return <Settings navigator={navigator} email={route.email}/>;
+      case 'Results':
+        return <Results navigator={navigator} email={route.email}/>;
     }
   }
 }

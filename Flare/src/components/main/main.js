@@ -88,12 +88,18 @@ class Main extends Component {
 
   navigateForward(routeName) {
     this.props.navigator.push({
-        name: routeName
+        name: routeName,
+        email: this.props.email
     });
   }
 
   navigateBack() {
     this.props.navigator.pop();
+  }
+
+  launchFlare() {
+    Alert.alert("Flare launched", "");
+    this.navigateForward('Results');
   }
 
   render() {
@@ -112,11 +118,12 @@ class Main extends Component {
           dataSource={this.state.dataSource}
           renderRow={(person) => <Share info={person} navigator={this.props.navigator}/>}
           renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.separator} />}
-          renderFooter={() => <View style={styles.extraBottom}></View>}
         />
+
         <TouchableOpacity
           style={styles.flare}
           activeOpacity={0.8}
+          onPress={this.launchFlare.bind(this)}
         >
         </TouchableOpacity>
       </View>
@@ -157,7 +164,10 @@ const styles = StyleSheet.create({
   },
   extraBottom: {
     height: 60,
+    width: 390,
     backgroundColor: colors.lightgray,
+    position: 'absolute',
+    top: 200
   }
 });
 

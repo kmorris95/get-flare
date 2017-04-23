@@ -18,8 +18,10 @@ import VerticalSelect from '../../elements/vertical-select';
 import HorizontalSelect from '../../elements/horizontal-select';
 import StyleItem from '../../elements/style-item';
 import { colors } from '../../constants/flare-constants';
+import { stripeSecretKey } from '../../constants/stripe';
 import { hairstyles } from '../../staticData/hairstyles';
 import Schedule from '../../elements/schedule';
+
 var moment = require('moment');
 
 let user;
@@ -75,7 +77,7 @@ class Profile extends Component{
   }
 
   submit() {
-    Alert.alert(this.state.appointmentDate, this.state.appointmentTime)
+    Alert.alert(this.state.appointmentDate, this.state.appointmentTime);
   }
 
   render() {
