@@ -52,7 +52,7 @@ export default class Flare extends Component {
       case 'Settings':
         return <Settings navigator={navigator} email={route.email}/>;
       case 'Results':
-        return <Results navigator={navigator} email={route.email}/>;
+        return <Results navigator={navigator} email={route.email} coords={route.coords}/>;
     }
   }
 }

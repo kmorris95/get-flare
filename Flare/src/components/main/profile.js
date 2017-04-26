@@ -18,7 +18,7 @@ import VerticalSelect from '../../elements/vertical-select';
 import HorizontalSelect from '../../elements/horizontal-select';
 import StyleItem from '../../elements/style-item';
 import { colors } from '../../constants/flare-constants';
-import { stripeSecretKey } from '../../constants/stripe';
+import { stripePublishKey } from '../../constants/api-keys';
 import { hairstyles } from '../../staticData/hairstyles';
 import Schedule from '../../elements/schedule';
 
@@ -67,7 +67,7 @@ class Profile extends Component{
 
   getTimes() {
     let times = [];
-    let start = moment('04/10/1995 8:00');
+    let start = moment('1995-04-10 08:00');
     for (var i = 0; i < 21; i++) {
       let interval = 30 * i;
       let time = moment(start).add(interval, 'minutes').format('hh:mm');
@@ -77,7 +77,36 @@ class Profile extends Component{
   }
 
   submit() {
-    Alert.alert(this.state.appointmentDate, this.state.appointmentTime);
+    let cardDetails = {
+      'card[number]': '4242424242424242',
+      'card[exp_month]': '12',
+      'card[exp_year]': '2022',
+      'card[cvc]': '123'
+    };
+    let formBody = [];
+    for (let property in cardDetails) {
+      let encodedKey = encodeURIComponent(property);
+      let encodedValue = encodeURIComponent(cardDetails[property]);
+      formBody.push(encodedKey + "=" + encodedValue);
+    }
+    formBody = formBody.join("&");
+    console.log(formBody);
+
+
+    fetch("https://api.stripe.com/v1/tokens", {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/x-www-urlencoded',
+        'Authorization': 'Bearer ' + stripePublishKey
+      },
+      body: formBody
+    }).then((response) => {
+      console.log(response)
+      /*response.json().then(resolved => {
+        debugger;
+      })*/
+    }).catch((e) => console.log(e));
   }
 
   render() {

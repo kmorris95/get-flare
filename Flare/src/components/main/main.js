@@ -86,10 +86,11 @@ class Main extends Component {
     this.setState({dataSource: ds.cloneWithRows(users)});
   }
 
-  navigateForward(routeName) {
+  navigateForward(routeName, coords) {
     this.props.navigator.push({
         name: routeName,
-        email: this.props.email
+        email: this.props.email,
+        coords: coords
     });
   }
 
@@ -98,8 +99,16 @@ class Main extends Component {
   }
 
   launchFlare() {
-    Alert.alert("Flare launched", "");
-    this.navigateForward('Results');
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        let latitude = position.coords.latitude;
+        let longitude = position.coords.longitude;
+        let coords = latitude + "," + longitude;
+        this.navigateForward('Results', coords);
+      },
+      (error) => {console.log(error)},
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+    );
   }
 
   render() {
