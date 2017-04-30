@@ -6,120 +6,134 @@ import {
   ScrollView,
   Alert,
   PickerIOS,
-  TouchableOpacity
+  TouchableOpacity,
+  ListView
 } from 'react-native';
 
 var PickerItemIOS = PickerIOS.Item;
 
 import { database } from '../../database';
 import TopBar from '../../elements/top-bar';
-import VerticalSelect from '../../elements/vertical-select';
-import HorizontalSelect from '../../elements/horizontal-select';
-import StyleItem from '../../elements/style-item';
+import ResultItem from '../../elements/result-item';
 import { colors } from '../../constants/flare-constants';
 import { googleMapsKey } from '../../constants/api-keys';
-import { hairstyles } from '../../staticData/hairstyles';
-import Schedule from '../../elements/schedule';
-var moment = require('moment');
 
 let shops;
 let resultList;
 let coords;
+let ds;
 
 class Results extends Component{
   constructor(props) {
     super(props);
     shops = database.objects('Shop');
     coords = props.coords;
+    //resultList = [];
     resultList = this.getResults();
+    //ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    this.state = {
+      //dataSource: ds.cloneWithRows(resultList)
+    }
   }
 
   extractNumberFromDistance(distance) {
-    let length = distance.length;
-    distance  = distance.substring(0, length-2);
-    distance = parseFloat(distance);
-    return distance;
+    //console.log(distance);
+    // let length = distance.length;
+    // distance  = distance.substring(0, length-2);
+    // distance = parseFloat(distance);
+    // return distance;
   }
 
   sortListByDistance(list) {
-    list.sort((a, b) => {
-      let distanceA = this.extractNumberFromDistance(a.distance);
-      let distanceB = this.extractNumberFromDistance(b.distance);
+    console.log(resultList)
+    let distanceA;
+    let distanceB;
 
-      return distanceA - distanceB;
-    })
+    for (let i = 0; i < list.length; i++) {
+      let element = list[i];
+      console.log(element);
+    }
 
     return list;
   }
 
-  async getDistance(address) {
-    let distance = "";
+  getResult(name, address, uriAddress, list) {
+    let result = {};
     let uri = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial";
     uri += "&origins=" + coords;
-    uri += "&destinations=" + address;
+    uri += "&destinations=" + uriAddress;
     uri += "&key=" + googleMapsKey;
     try {
-      let response = await fetch(uri);
-      let content = await response.json();
-      let element = content.rows[0].elements[0];
-      distance = element.distance.text;
+      let response = fetch(uri).then((content) => {
+        content = content.json().then((element) => {
+          element = element.rows[0].elements[0];
+          result.name = name;
+          result.address = address;
+          result.distance = element.distance.text;
+          return result;
+        }).catch((error) => {
+          console.log(error);
+        });
+      }).catch((error) => {
+        console.log(error);
+      });
     } catch(error) {
       console.log(error);
     }
-    return distance;
   }
 
-  async getResults() {
-    let resultList = [];
+  getResults() {
+    let list = [];
     for (let i = 0; i < shops.length; i++) {
       let shop = shops[i];
       let address = [];
-      let result;
       address.push(shop.address);
       address.push(shop.city + ",");
       address.push(shop.state);
       address.push(shop.zipCode);
       address = address.join(" ");
       uriAddress = address.replace(/\s/g, '+');
-      let distance = this.getDistance(uriAddress);
-      try {
-        await Promise.resolve(distance).then((resolved) => {
-          distance = resolved;
-          result = {name: shop.name, address: address, distance: distance};
-          resultList.push(result);
-        })
-      } catch(e) {
-        console.log(e);
-      }
+      this.getResult(shop.name, address, uriAddress, list);
     }
-    resultList = this.sortListByDistance(resultList);
-    return resultList;
+    let object = list;
+    console.log(Object.values(list));
+    //console.log(this.state.list);
+    //this.state.list = this.sortListByDistance(resultList);
+    //return resultList;
   }
 
   render() {
-    let renderList;
-    try {
-      Promise.resolve(resultList).then((resolve) => {
-        resultList = resolve;
-        renderList = resultList.map((item) => {
-          if (item) {
-            return (
-              <Text>
-                {item.name}
-              </Text>
-            )
-          }
-        })
-      })
-      console.log(renderList);
-    } catch(error) {
-      console.log(error);
-    }
+    // try {
+    //   Promise.resolve(resultList).then((resolved) => {
+    //     renderList = resolved;
+    //   })
+    // } catch(e) {
+    //   console.log(e);
+    // }
+
+    // <ListView
+    //   dataSource={this.state.dataSource}
+    //   renderRow={(item) => <ResultItem item={item}/>}
+    //   renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.separator} />}
+    // />
+
+    // let list;
+    // try {
+    //   Promise.resolve(resultList).then((resolved) => {
+    //     resultList = resolved;
+    //     list = resultList.map((item) => {
+    //       return (
+    //         item.name
+    //       )
+    //     })
+    //   })
+    // } catch(e) {
+    //   console.log(e);
+    // }
 
     return(
       <ScrollView style={styles.container}>
         <TopBar navigator={this.props.navigator} text={"Flare Results"}/>
-        {renderList}
       </ScrollView>
     )
   }

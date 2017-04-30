@@ -128,7 +128,6 @@ class Main extends Component {
           renderRow={(person) => <Share info={person} navigator={this.props.navigator}/>}
           renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.separator} />}
         />
-
         <TouchableOpacity
           style={styles.flare}
           activeOpacity={0.8}
