@@ -28,6 +28,7 @@ class ResultItem extends Component {
     render() {
       return(
           <Text>
+            {this.props.name + " " + this.props.distance}
           </Text>
       );
     }

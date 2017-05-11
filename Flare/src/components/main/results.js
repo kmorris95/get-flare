@@ -19,21 +19,26 @@ import { colors } from '../../constants/flare-constants';
 import { googleMapsKey } from '../../constants/api-keys';
 
 let shops;
-let resultList;
 let coords;
 let ds;
+let GOOGLE_DISTANCE_URI_START = 'https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial';
 
 class Results extends Component{
+
   constructor(props) {
     super(props);
     shops = database.objects('Shop');
     coords = props.coords;
-    //resultList = [];
-    resultList = this.getResults();
-    //ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      //dataSource: ds.cloneWithRows(resultList)
+      resultList: [],
+      //dataSource: ds.cloneWithRows(this.resultList),
+      distance: ''
     }
+  }
+
+  componentDidMount() {
+    this.getResults();
   }
 
   extractNumberFromDistance(distance) {
@@ -57,47 +62,77 @@ class Results extends Component{
     return list;
   }
 
-  getResult(name, address, uriAddress, list) {
+  getResult(name, address, uriAddress) {
     let result = {};
-    let uri = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial";
-    uri += "&origins=" + coords;
+    let uri = GOOGLE_DISTANCE_URI_START + "&origins=" + coords;
     uri += "&destinations=" + uriAddress;
     uri += "&key=" + googleMapsKey;
     try {
-      let response = fetch(uri).then((content) => {
-        content = content.json().then((element) => {
-          element = element.rows[0].elements[0];
-          result.name = name;
-          result.address = address;
-          result.distance = element.distance.text;
-          return result;
-        }).catch((error) => {
-          console.log(error);
-        });
-      }).catch((error) => {
-        console.log(error);
-      });
+      fetch(uri)
+        .then((response) => response.json())
+        .then((responseData) => {
+          let distance = responseData.rows[0].elements[0].distance.text;
+          result = {name: name, address: address, distance: distance};
+          let list = this.state.resultList;
+          list.push(result);
+          this.setState({resultList: list});
+          // console.log(distance)
+          // if (this.state.resultList === null) {
+          //   this.setState({resultList: []})
+          // }
+          // element = element.rows[0].elements[0];
+          // result.distance = element.distance.text;
+          // return result;
+        }).done();
     } catch(error) {
       console.log(error);
     }
   }
 
   getResults() {
-    let list = [];
-    for (let i = 0; i < shops.length; i++) {
-      let shop = shops[i];
-      let address = [];
-      address.push(shop.address);
-      address.push(shop.city + ",");
-      address.push(shop.state);
-      address.push(shop.zipCode);
-      address = address.join(" ");
-      uriAddress = address.replace(/\s/g, '+');
-      this.getResult(shop.name, address, uriAddress, list);
-    }
-    let object = list;
-    console.log(Object.values(list));
-    //console.log(this.state.list);
+    let shop = shops[0];
+    let address = [];
+    address.push(shop.address);
+    address.push(shop.city + ",");
+    address.push(shop.state);
+    address.push(shop.zipCode);
+    address = address.join(" ");
+    uriAddress = address.replace(/\s/g, '+');
+
+    let uri = GOOGLE_DISTANCE_URI_START + "&origins=" + coords;
+    uri += "&destinations=" + uriAddress;
+    uri += "&key=" + googleMapsKey;
+
+    fetch(uri)
+      .then((response) => response.json())
+      .then((responseData) => {
+        let distance = responseData.rows[0].elements[0].distance.text;
+        this.setState({distance: distance});
+        // result = {name: name, address: address, distance: distance};
+        // let list = this.state.resultList;
+        // list.push(result);
+        // this.setState({resultList: list});
+        // console.log(distance)
+        // if (this.state.resultList === null) {
+        //   this.setState({resultList: []})
+        // }
+        // element = element.rows[0].elements[0];
+        // result.distance = element.distance.text;
+        // return result;
+      }).done();
+
+    // for (let i = 0; i < shops.length; i++) {
+    //   let shop = shops[i];
+    //   let address = [];
+    //   address.push(shop.address);
+    //   address.push(shop.city + ",");
+    //   address.push(shop.state);
+    //   address.push(shop.zipCode);
+    //   address = address.join(" ");
+    //   uriAddress = address.replace(/\s/g, '+');
+    //   let distance = this.getResult(shop.name, address, uriAddress);
+    //   console.log(this.state.resultList)
+    // }
     //this.state.list = this.sortListByDistance(resultList);
     //return resultList;
   }
@@ -134,6 +169,9 @@ class Results extends Component{
     return(
       <ScrollView style={styles.container}>
         <TopBar navigator={this.props.navigator} text={"Flare Results"}/>
+        <Text>
+          {this.state.distance}
+        </Text>
       </ScrollView>
     )
   }
