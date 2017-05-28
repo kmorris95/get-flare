@@ -6,6 +6,7 @@ import {
   ScrollView,
   Alert,
   PickerIOS,
+  TouchableHighlight,
   TouchableOpacity,
   ListView
 } from 'react-native';
@@ -14,7 +15,6 @@ var PickerItemIOS = PickerIOS.Item;
 
 import { database } from '../../database';
 import TopBar from '../../elements/top-bar';
-import ResultItem from '../../elements/result-item';
 import { colors } from '../../constants/flare-constants';
 import { googleMapsKey } from '../../constants/api-keys';
 
@@ -29,12 +29,13 @@ class Results extends Component{
     super(props);
     shops = database.objects('Shop');
     coords = props.coords;
-    ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      resultList: [],
-      //dataSource: ds.cloneWithRows(this.resultList),
-      distance: ''
+      resultList: null
     }
+  }
+
+  navigateBack() {
+    this.props.navigator.pop();
   }
 
   componentDidMount() {
@@ -42,136 +43,112 @@ class Results extends Component{
   }
 
   extractNumberFromDistance(distance) {
-    //console.log(distance);
-    // let length = distance.length;
-    // distance  = distance.substring(0, length-2);
-    // distance = parseFloat(distance);
-    // return distance;
+    let length = distance.length;
+    distance  = distance.substring(0, length-2);
+    distance = parseFloat(distance);
+    return distance;
   }
 
   sortListByDistance(list) {
-    console.log(resultList)
     let distanceA;
     let distanceB;
 
-    for (let i = 0; i < list.length; i++) {
-      let element = list[i];
-      console.log(element);
-    }
-
+    list.sort((a, b) => {
+      distanceA = this.extractNumberFromDistance(a.distance);
+      distanceB = this.extractNumberFromDistance(b.distance);
+      return distanceA - distanceB;
+    })
     return list;
   }
 
-  getResult(name, address, uriAddress) {
+  getResult(name, address, uriAddress, list) {
     let result = {};
     let uri = GOOGLE_DISTANCE_URI_START + "&origins=" + coords;
     uri += "&destinations=" + uriAddress;
     uri += "&key=" + googleMapsKey;
-    try {
-      fetch(uri)
-        .then((response) => response.json())
-        .then((responseData) => {
-          let distance = responseData.rows[0].elements[0].distance.text;
-          result = {name: name, address: address, distance: distance};
-          let list = this.state.resultList;
-          list.push(result);
-          this.setState({resultList: list});
-          // console.log(distance)
-          // if (this.state.resultList === null) {
-          //   this.setState({resultList: []})
-          // }
-          // element = element.rows[0].elements[0];
-          // result.distance = element.distance.text;
-          // return result;
-        }).done();
-    } catch(error) {
-      console.log(error);
-    }
-  }
-
-  getResults() {
-    let shop = shops[0];
-    let address = [];
-    address.push(shop.address);
-    address.push(shop.city + ",");
-    address.push(shop.state);
-    address.push(shop.zipCode);
-    address = address.join(" ");
-    uriAddress = address.replace(/\s/g, '+');
-
-    let uri = GOOGLE_DISTANCE_URI_START + "&origins=" + coords;
-    uri += "&destinations=" + uriAddress;
-    uri += "&key=" + googleMapsKey;
-
     fetch(uri)
       .then((response) => response.json())
       .then((responseData) => {
         let distance = responseData.rows[0].elements[0].distance.text;
-        this.setState({distance: distance});
-        // result = {name: name, address: address, distance: distance};
-        // let list = this.state.resultList;
-        // list.push(result);
-        // this.setState({resultList: list});
-        // console.log(distance)
-        // if (this.state.resultList === null) {
-        //   this.setState({resultList: []})
-        // }
-        // element = element.rows[0].elements[0];
-        // result.distance = element.distance.text;
-        // return result;
+        result = {name: name, address: address, distance: distance};
+        list.push(result);
+        this.setState({resultList: list});
       }).done();
+  }
 
-    // for (let i = 0; i < shops.length; i++) {
-    //   let shop = shops[i];
-    //   let address = [];
-    //   address.push(shop.address);
-    //   address.push(shop.city + ",");
-    //   address.push(shop.state);
-    //   address.push(shop.zipCode);
-    //   address = address.join(" ");
-    //   uriAddress = address.replace(/\s/g, '+');
-    //   let distance = this.getResult(shop.name, address, uriAddress);
-    //   console.log(this.state.resultList)
-    // }
+  getResults() {
+    let list = [];
+    for (let i = 0; i < shops.length; i++) {
+      let shop = shops[i];
+      let address = [];
+      address.push(shop.address);
+      address.push(shop.city + ",");
+      address.push(shop.state);
+      address.push(shop.zipCode);
+      address = address.join(" ");
+      uriAddress = address.replace(/\s/g, '+');
+      this.getResult(shop.name, address, uriAddress, list);
+    }
     //this.state.list = this.sortListByDistance(resultList);
     //return resultList;
   }
 
+  navigateToShop(name, address) {
+
+  }
+
+  renderList() {
+    if (this.state.resultList === null) {
+      return (
+        <Text>
+          Loading...
+        </Text>
+      )
+    } else {
+      let list = this.sortListByDistance(this.state.resultList);
+      list = list.map((element) => {
+        return (
+          <TouchableHighlight
+            style={styles.shopButton}
+            onPress={this.navigateToShop.bind(this, element.name, element.address)}
+            underlayColor={colors.lightgray}
+            key={element.name}
+          >
+            <Text>
+              <Text>
+                {element.name}
+              </Text>
+              <Text style={styles.address}>
+                {"\n" + element.address + " - "}
+              </Text>
+              <Text style={styles.distance}>
+                {element.distance}
+              </Text>
+            </Text>
+        </TouchableHighlight>
+        )
+      });
+      return list;
+    }
+  }
+
   render() {
-    // try {
-    //   Promise.resolve(resultList).then((resolved) => {
-    //     renderList = resolved;
-    //   })
-    // } catch(e) {
-    //   console.log(e);
-    // }
-
-    // <ListView
-    //   dataSource={this.state.dataSource}
-    //   renderRow={(item) => <ResultItem item={item}/>}
-    //   renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.separator} />}
-    // />
-
-    // let list;
-    // try {
-    //   Promise.resolve(resultList).then((resolved) => {
-    //     resultList = resolved;
-    //     list = resultList.map((item) => {
-    //       return (
-    //         item.name
-    //       )
-    //     })
-    //   })
-    // } catch(e) {
-    //   console.log(e);
-    // }
-
     return(
       <ScrollView style={styles.container}>
-        <TopBar navigator={this.props.navigator} text={"Flare Results"}/>
-        <Text>
-          {this.state.distance}
-        </Text>
+        <View style={styles.topBar}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={this.navigateBack.bind(this)}
+          >
+            <Text style={styles.back}>
+              &#60;
+            </Text>
+          </TouchableOpacity>
+          <Text style={styles.pageHeader}>
+            Flare Results
+          </Text>
+        </View>
+        {this.renderList()}
       </ScrollView>
     )
   }
@@ -181,10 +158,48 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  topBar: {
+    backgroundColor: colors.lightgray,
+    height: 50,
+    flexDirection: 'row',
+  },
+  back: {
+    marginLeft: 10,
+    marginTop: 21,
+    color: colors.magenta,
+    fontWeight: '900',
+    fontSize: 20
+  },
+  pageHeader: {
+    marginHorizontal: 114,
+    marginTop: 23,
+    width: 200,
+    color: colors.teal,
+    fontSize: 17,
+    fontWeight: '500'
+  },
   separator: {
     flex: 1,
     height: StyleSheet.hairlineWidth,
     backgroundColor: '#8E8E8E',
+  },
+  outerText: {
+
+  },
+  shopButton: {
+    height: 45,
+    borderColor: '#8E8E8E',
+    borderWidth: StyleSheet.hairlineWidth,
+    paddingLeft: 5,
+    paddingTop: 5,
+    paddingBottom: 5
+  },
+  address: {
+    color: '#616266',
+    fontSize: 11
+  },
+  distance: {
+    fontWeight: '700'
   }
 });
 
