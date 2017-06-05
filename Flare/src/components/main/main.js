@@ -27,9 +27,12 @@ class Main extends Component {
 
   constructor(props) {
     super(props);
-    users = database.objects('User');
-    user = users.filtered('email = "' + this.props.email + '"');
-    user = user[0];
+    users = {}
+    user = {};
+    console.log(database)
+    // users = database.objects('User');
+    // user = users.filtered('email = "' + this.props.email + '"');
+    // user = user[0];
     ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
       menu: 'inactive',
