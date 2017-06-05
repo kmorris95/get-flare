@@ -33,7 +33,7 @@ class LoginSignUp extends Component {
                     />
                     <Image
                      style={styles.background}
-                     source={require("../../images/flare_4.jpeg")}
+                     source={require("../../images/flare_4.jpg")}
                     />
                 </ScrollView>
                 <View style={styles.logo}></View>

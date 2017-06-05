@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-               BuildableName = "Flare-tvOS.app"
-               BlueprintName = "Flare-tvOS"
-               ReferencedContainer = "container:Flare.xcodeproj">
+               BuildableName = "BusinessFlare-tvOS.app"
+               BlueprintName = "BusinessFlare-tvOS"
+               ReferencedContainer = "container:BusinessFlare.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -43,9 +43,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
-               BuildableName = "Flare-tvOSTests.xctest"
-               BlueprintName = "Flare-tvOSTests"
-               ReferencedContainer = "container:Flare.xcodeproj">
+               BuildableName = "BusinessFlare-tvOSTests.xctest"
+               BlueprintName = "BusinessFlare-tvOSTests"
+               ReferencedContainer = "container:BusinessFlare.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -61,9 +61,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
-               BuildableName = "Flare-tvOSTests.xctest"
-               BlueprintName = "Flare-tvOSTests"
-               ReferencedContainer = "container:Flare.xcodeproj">
+               BuildableName = "BusinessFlare-tvOSTests.xctest"
+               BlueprintName = "BusinessFlare-tvOSTests"
+               ReferencedContainer = "container:BusinessFlare.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -71,9 +71,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "Flare-tvOS.app"
-            BlueprintName = "Flare-tvOS"
-            ReferencedContainer = "container:Flare.xcodeproj">
+            BuildableName = "BusinessFlare-tvOS.app"
+            BlueprintName = "BusinessFlare-tvOS"
+            ReferencedContainer = "container:BusinessFlare.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -94,9 +94,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "Flare-tvOS.app"
-            BlueprintName = "Flare-tvOS"
-            ReferencedContainer = "container:Flare.xcodeproj">
+            BuildableName = "BusinessFlare-tvOS.app"
+            BlueprintName = "BusinessFlare-tvOS"
+            ReferencedContainer = "container:BusinessFlare.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -113,9 +113,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "Flare-tvOS.app"
-            BlueprintName = "Flare-tvOS"
-            ReferencedContainer = "container:Flare.xcodeproj">
+            BuildableName = "BusinessFlare-tvOS.app"
+            BlueprintName = "BusinessFlare-tvOS"
+            ReferencedContainer = "container:BusinessFlare.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
