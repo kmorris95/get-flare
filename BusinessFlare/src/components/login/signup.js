@@ -46,10 +46,10 @@ class SignUp extends Component {
     };
   }
 
-  navigateForward(routeName, email) {
+  navigateForward(routeName, user) {
     this.props.navigator.push({
         name: routeName,
-        email: email
+        user: user
     });
   }
 
@@ -166,10 +166,7 @@ class SignUp extends Component {
         valid = this.checkForUniqueEmail();
         if (valid) {
           this.profile.service = this.service.whichService();
-          database.write(() => {
-            database.create('Customer', this.profile);
-          });
-          this.navigateForward('Main', this.profile.email);
+          this.navigateForward('GatherMoreInfo', this.profile);
         }
       }
     }

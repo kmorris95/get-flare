@@ -10,13 +10,14 @@ import {
 import LoginSignUp from './src/components/login/login-signup';
 import LogIn from './src/components/login/login';
 import SignUp from './src/components/login/signup';
+import GatherMoreInfo from './src/components/login/gather-more-info';
 
 export default class BusinessFlare extends Component {
 
   render() {
     return (
       <Navigator
-        initialRoute={{name: 'LogInSignUp'}}
+        initialRoute={{name: 'SignUp'}}
         renderScene={this.renderScene.bind(this)}
       />
     );
@@ -30,6 +31,8 @@ export default class BusinessFlare extends Component {
         return <LogIn navigator={navigator}/>;
       case 'SignUp':
         return <SignUp navigator={navigator}/>;
+      case 'GatherMoreInfo':
+        return <GatherMoreInfo navigator={navigator} user={route.user}/>;
     }
   }
 }

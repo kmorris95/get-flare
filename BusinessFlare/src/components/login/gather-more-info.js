@@ -19,6 +19,7 @@ class GatherMoreInfo extends Component {
 
   constructor(props) {
     super(props);
+    this.user = this.props.user;
     this.shop = {
       name: '',
       address: '',
@@ -116,20 +117,19 @@ class GatherMoreInfo extends Component {
       valid = this.checkZipCode();
       if (valid) {
         this.shop.compareName = this.shop.name.toUpperCase().replace(/\s/g, "");
-        database.write(() => {
-          let user = database.objects('User').filtered('email = "' + this.props.email + '"');
-          user = user[0];
-          user.shopName = this.shop.name;
+        this.user.shopName = this.shop.compareName;
 
+        database.write(() => {
+          database.create('Customer', this.user);
           let dbShop = database.objects('Shop').filtered('compareName = "' + this.shop.compareName + '"');
           dbShop = dbShop[0];
           if (dbShop === undefined) {
-            this.shop.employees.push(user);
+            this.shop.employees.push(this.user);
             database.create('Shop', this.shop);
           } else {
             dbShop.employees.push(user);
           }
-        })
+        });
         Alert.alert('Sign Up Successful');
         this.navigateForward('Main');
       }
@@ -169,7 +169,7 @@ class GatherMoreInfo extends Component {
                 returnKeyType="next"
                 autoCorrect={false}
                 onChangeText={(text) => this.shop.address = text.trim()}
-                onSubmitEditing={() => this.shopState.focus()}
+                onSubmitEditing={() => this.shopCity.focus()}
                 ref={(input) => this.shopAddress = input}
               />
               <TextInput
@@ -178,7 +178,7 @@ class GatherMoreInfo extends Component {
                 returnKeyType="next"
                 autoCorrect={false}
                 onChangeText={(text) => this.shop.city = text.trim()}
-                onSubmitEditing={() => this.shopZipCode.focus()}
+                onSubmitEditing={() => this.shopState.focus()}
                 ref={(input) => this.shopCity = input}
               />
               <TextInput
@@ -187,7 +187,7 @@ class GatherMoreInfo extends Component {
                 returnKeyType="next"
                 autoCorrect={false}
                 onChangeText={(text) => this.shop.state = text.trim()}
-                onSubmitEditing={() => this.shopCity.focus()}
+                onSubmitEditing={() => this.shopZipCode.focus()}
                 ref={(input) => this.shopState = input}
               />
               <TextInput
