@@ -17,7 +17,7 @@ export default class BusinessFlare extends Component {
   render() {
     return (
       <Navigator
-        initialRoute={{name: 'SignUp'}}
+        initialRoute={{name: 'GatherMoreInfo'}}
         renderScene={this.renderScene.bind(this)}
       />
     );

@@ -33,7 +33,7 @@ const shopSchema = {
     rating: {type: 'double', optional: true},
     employees: {type: 'list', objectType: 'User'},
     image: {type: 'string', optional: true},
-    compareName: 'string'
+    googleAddress: 'string'
   }
 }
 
@@ -52,5 +52,5 @@ const customerSchema = {
 
 export let database = new Realm({
   schema: [userSchema, shopSchema, customerSchema],
-  schemaVersion: 22
+  schemaVersion: 23
 });

@@ -14,6 +14,10 @@ import {
 import { colors } from '../../constants/flare-constants';
 import { zipCodeRegex } from '../../constants/regex';
 import { database } from '../../database';
+import { googleMapsKey } from '../../constants/api-keys';
+
+let GOOGLE_DISTANCE_URI_START = 'https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial';
+let coords;
 
 class GatherMoreInfo extends Component {
 
@@ -26,7 +30,7 @@ class GatherMoreInfo extends Component {
       state: '',
       city: '',
       zipCode: '',
-      compareName: '',
+      googleAddress: '',
       employees: []
     };
     this.state = {
@@ -36,6 +40,15 @@ class GatherMoreInfo extends Component {
       validShopCity: true,
       validShopZipCode: true
     };
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        let latitude = position.coords.latitude;
+        let longitude = position.coords.longitude;
+        coords = latitude + "," + longitude;
+      },
+      (error) => {console.log(error)},
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+    );
   }
 
   navigateForward(routeName) {
@@ -47,6 +60,26 @@ class GatherMoreInfo extends Component {
 
   navigateBack() {
     this.props.navigator.pop();
+  }
+
+  getValidAddress(address, city, state, zipCode) {
+    let uriAddress = [];
+    uriAddress.push(address);
+    uriAddress.push(city);
+    uriAddress.push(state);
+    uriAddress.push(zipCode);
+    uriAddress = uriAddress.join(" ");
+    uriAddress = uriAddress.replace(/\s/g, '+');
+    let uri = GOOGLE_DISTANCE_URI_START + "&origins=" + coords;
+    uri += "&destinations=" + uriAddress;
+    uri += "&key=" + googleMapsKey;
+
+    fetch(uri)
+      .then((response) => response.json())
+      .then((responseData) => {
+        let shopAddress = responseData.destination_addresses[0];
+        
+      }).done();
   }
 
   checkForBlanks() {
@@ -111,29 +144,30 @@ class GatherMoreInfo extends Component {
   }
 
   submitForm() {
-    let valid = true;
-    valid = this.checkForBlanks();
-    if (valid) {
-      valid = this.checkZipCode();
-      if (valid) {
-        this.shop.compareName = this.shop.name.toUpperCase().replace(/\s/g, "");
-        this.user.shopName = this.shop.compareName;
-
-        database.write(() => {
-          database.create('Customer', this.user);
-          let dbShop = database.objects('Shop').filtered('compareName = "' + this.shop.compareName + '"');
-          dbShop = dbShop[0];
-          if (dbShop === undefined) {
-            this.shop.employees.push(this.user);
-            database.create('Shop', this.shop);
-          } else {
-            dbShop.employees.push(user);
-          }
-        });
-        Alert.alert('Sign Up Successful');
-        this.navigateForward('Main');
-      }
-    }
+    this.getValidAddress(this.shop.address, this.shop.city, this.shop.state, this.shop.zipCode);
+    // let valid = true;
+    // valid = this.checkForBlanks();
+    // if (valid) {
+    //   valid = this.checkZipCode();
+    //   if (valid) {
+    //     this.shop.compareName = this.shop.name.toUpperCase().replace(/\s/g, "");
+    //     this.user.shopName = this.shop.compareName;
+    //
+    //     database.write(() => {
+    //       database.create('Customer', this.user);
+    //       let dbShop = database.objects('Shop').filtered('compareName = "' + this.shop.compareName + '"');
+    //       dbShop = dbShop[0];
+    //       if (dbShop === undefined) {
+    //         this.shop.employees.push(this.user);
+    //         database.create('Shop', this.shop);
+    //       } else {
+    //         dbShop.employees.push(user);
+    //       }
+    //     });
+    //     Alert.alert('Sign Up Successful');
+    //     this.navigateForward('Main');
+    //   }
+    // }
   }
 
   render() {
